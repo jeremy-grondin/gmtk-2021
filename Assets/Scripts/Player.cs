@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
     float speedMove = 0;
 
     [SerializeField]
-    GameObject soul = null;
+    GameObject soulPrefab = null;
+
+    GameObject soulReal = null;
 
     // Update is called once per frame
     void Update()
@@ -22,11 +24,22 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
             transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0));
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && soulReal == null)
         {
-            GameObject tempSoul = Instantiate(soul, transform.position, Quaternion.identity);
-            tempSoul.GetComponent<Rigidbody>().AddForce(new Vector3(10, 0, 0));
+            soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
+            soulReal.GetComponent<Rigidbody>().AddForce(new Vector3(10, 0, 0));
 
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log("Colision");
+            if (collision.gameObject.CompareTag("soul"))
+            {
+                Destroy(collision.gameObject);
+                soulReal = null;
+                Debug.Log("Colision and tag");
+            }
         }
     }
 }
