@@ -1,16 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ILife
 {
-    [SerializeField]
-    float speedMove = 0;
+    [SerializeField] UnityEvent onHit = null;
+    [SerializeField] UnityEvent onDeath = null;
 
-    [SerializeField]
-    GameObject soulPrefab = null;
 
-    GameObject soulReal = null;
+    [SerializeField] float speedMove = 0;
+    [SerializeField] int maxLife = 0;
+    int currentLife = 0;
+
+    [SerializeField] GameObject soulPrefab = null;
+    public GameObject soulReal = null;
+
+
+    void Start()
+    {
+        currentLife = maxLife;
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -26,32 +37,34 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && soulReal == null)
         {
- Vector3 pos = transform.position;
-            pos.z += 2.0f;
-            soulReal = Instantiate(soul, pos, Quaternion.identity);
-            Vector3 dir = Vector3.zero;
+            soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Plane plane = new Plane(Vector3.up, 0.0f);
 
             if (Physics.Raycast(ray, out hit, 100.0f))
             {
-                dir = new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z);
+                Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+                soulReal.GetComponent<Rigidbody>().AddForce(dir * 400);
             }
-            dir.Normalize();
-            soulReal.GetComponent<Rigidbody>().AddForce(dir * 100);
 
         }
+    }
 
-        void OnCollisionEnter(Collision collision)
+
+
+   public void TakeHit(int damage)
+    {
+        currentLife -= damage;
+        Debug.Log(currentLife.ToString());
+        if (onHit != null)
+            onHit.Invoke();
+
+        if (currentLife <= 0)
         {
-            Debug.Log("Colision");
-            if (collision.gameObject.CompareTag("soul"))
-            {
-                Destroy(collision.gameObject);
-                soulReal = null;
-                Debug.Log("Colision and tag");
-            }
+            Debug.Log("Player Dead");
+            if (onDeath != null)
+                onDeath.Invoke();
         }
     }
 }
