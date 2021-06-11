@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     GameObject soulPrefab = null;
 
-    GameObject soulReal = null;
+    public GameObject soulReal = null;
 
     // Update is called once per frame
     void Update()
@@ -26,32 +26,18 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1) && soulReal == null)
         {
- Vector3 pos = transform.position;
-            pos.z += 2.0f;
-            soulReal = Instantiate(soul, pos, Quaternion.identity);
-            Vector3 dir = Vector3.zero;
+            soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Plane plane = new Plane(Vector3.up, 0.0f);
 
             if (Physics.Raycast(ray, out hit, 100.0f))
             {
-                dir = new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z);
+                Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+                soulReal.GetComponent<Rigidbody>().AddForce(dir * 100);
             }
-            dir.Normalize();
-            soulReal.GetComponent<Rigidbody>().AddForce(dir * 100);
 
-        }
-
-        void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log("Colision");
-            if (collision.gameObject.CompareTag("soul"))
-            {
-                Destroy(collision.gameObject);
-                soulReal = null;
-                Debug.Log("Colision and tag");
-            }
         }
     }
+
 }
