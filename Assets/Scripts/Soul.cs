@@ -13,6 +13,9 @@ public class Soul : MonoBehaviour
     [SerializeField]
     Material colorWhenPickable = null;
 
+    [SerializeField]
+    GameObject auraToActivate = null;
+
 
     // Update is called once per frame
     void Update()
@@ -22,11 +25,7 @@ public class Soul : MonoBehaviour
             timer -= Time.deltaTime;
 
             if (timer <= 0)
-            {
-                canBePickupByPlayer = true;
-                GetComponent<MeshRenderer>().material = colorWhenPickable;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-            }
+                EndPath();
         }
     }
 
@@ -34,10 +33,26 @@ public class Soul : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && canBePickupByPlayer)
+
+
+        if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player>().soulReal = null;
-            Destroy(gameObject);
+            if (canBePickupByPlayer)
+            {
+                other.gameObject.GetComponent<Player>().soulReal = null;
+                Destroy(gameObject);
+            }
         }
+        else
+            EndPath();
+    }
+
+    private void EndPath()
+    {
+        timer = 0;
+        canBePickupByPlayer = true;
+        GetComponent<MeshRenderer>().material = colorWhenPickable;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        auraToActivate.SetActive(true);
     }
 }

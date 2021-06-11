@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 1516155136825805258}
   - component: {fileID: 1516155136825805259}
   - component: {fileID: 840176020899505913}
-  - component: {fileID: 6755249331829753443}
+  - component: {fileID: 5977805462734740585}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -192,10 +192,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedMove: 10
+  maxLife: 10
   soulPrefab: {fileID: 9029724983004316219, guid: 33adc6e6eebb7be47b056c93639b34a4,
     type: 3}
   soulReal: {fileID: 0}
---- !u!54 &6755249331829753443
+--- !u!54 &5977805462734740585
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
