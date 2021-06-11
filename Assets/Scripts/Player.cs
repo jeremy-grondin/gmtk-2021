@@ -35,6 +35,19 @@ public class Player : MonoBehaviour, ILife
         if (Input.GetKey(KeyCode.Q))
             transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0));
 
+        if(soulReal != null)
+        {
+            float radius = soulReal.GetComponent<Soul>().radius / 2;
+            Vector3 selfToSoul = (soulReal.transform.position - transform.position);
+
+            if (selfToSoul.magnitude > radius)            
+                transform.position += selfToSoul.normalized * (selfToSoul.magnitude - radius);
+            
+
+        }
+
+
+
         if (Input.GetMouseButtonDown(1) && soulReal == null)
         {
             soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
@@ -53,7 +66,7 @@ public class Player : MonoBehaviour, ILife
 
 
 
-   public void TakeHit(int damage)
+    public void TakeHit(int damage)
     {
         currentLife -= damage;
         Debug.Log(currentLife.ToString());
@@ -67,4 +80,5 @@ public class Player : MonoBehaviour, ILife
                 onDeath.Invoke();
         }
     }
+
 }
