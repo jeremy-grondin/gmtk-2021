@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Soul : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] public float radius = 0;
     bool canBePickupByPlayer = false;
+    [SerializeField] float timer = 2;
 
-    [SerializeField]
-    float timer = 2;
+    [SerializeField] Material colorWhenPickable = null;
+    [SerializeField] GameObject auraToActivate = null;
 
-    [SerializeField]
-    Material colorWhenPickable = null;
 
-    [SerializeField]
-    GameObject auraToActivate = null;
-
+    private void Start()
+    {
+        auraToActivate.transform.localScale = new Vector3(radius, 0.1f, radius);
+    }
 
     // Update is called once per frame
     void Update()
