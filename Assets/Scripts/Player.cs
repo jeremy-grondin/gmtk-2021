@@ -7,6 +7,7 @@ public class Player : MonoBehaviour, ILife
 {
 
     bool isDashing = false;
+    [SerializeField] UnityEvent onThrow = null;
     [SerializeField] UnityEvent onDash = null;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
@@ -105,6 +106,9 @@ public class Player : MonoBehaviour, ILife
 
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
+                if (onThrow != null)
+                    onThrow.Invoke();
+
                 soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
                 soulReal.GetComponent<Soul>().targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
                 rangeFeedBack.SetActive(false);
