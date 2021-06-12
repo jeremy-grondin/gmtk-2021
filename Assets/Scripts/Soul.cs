@@ -56,9 +56,9 @@ public class Soul : MonoBehaviour
                 if (otherScript.onPickUp != null)
                     otherScript.onPickUp.Invoke();
 
-                otherScript.soulReal = null;
+                canBePickupByPlayer = false;
                 otherScript.rangeFeedBack.SetActive(true);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
         else
