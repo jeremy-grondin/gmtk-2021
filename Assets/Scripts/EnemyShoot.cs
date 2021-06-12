@@ -31,13 +31,19 @@ public class EnemyShoot : MonoBehaviour, ILife
         if (currentCooldownTime > 0)
             currentCooldownTime -= Time.deltaTime;
 
-        if (currentCooldownTime <= 0  && (player.position - transform.position).magnitude <= rangeMax)
+        if ((player.position - transform.position).magnitude <= rangeMax)
         {
-            currentCooldownTime = cooldownTime;
-            GameObject clone = Instantiate(bullet, transform.position, transform.rotation);
-            clone.gameObject.GetComponent<Bullet>().destination = player.position;
-            if (startShoot != null)
-                startShoot.Invoke();
+            transform.rotation = Quaternion.LookRotation(player.position - transform.position, Vector3.up);
+
+            if (currentCooldownTime <= 0)
+            {
+                if (startShoot != null)
+                    startShoot.Invoke();
+
+                currentCooldownTime = cooldownTime;
+                GameObject clone = Instantiate(bullet, transform.position, transform.rotation);
+                clone.gameObject.GetComponent<Bullet>().destination = player.position;
+            }
         }
 
     }
