@@ -619,7 +619,9 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  dashSpeed: 10
+  onDash:
+    m_PersistentCalls:
+      m_Calls: []
   speedMove: 10
   maxLife: 10
   soulPrefab: {fileID: 9029724983004316219, guid: 33adc6e6eebb7be47b056c93639b34a4,
@@ -629,7 +631,9 @@ MonoBehaviour:
   SoulStartPoint: {fileID: 6573927404343872970}
   targetPos: {fileID: 1865308052}
   maxRangeTargetPos: 4.5
-  dashDuration: 1.5
+  dashSpeed: 50
+  dashCooldown: 2
+  dashDuration: 0.5
 --- !u!1 &4456500703016288569
 GameObject:
   m_ObjectHideFlags: 0

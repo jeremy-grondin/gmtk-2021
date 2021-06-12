@@ -9,9 +9,9 @@ public class Player : MonoBehaviour, ILife
     bool isDashing = false;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
+    [SerializeField] UnityEvent onDash = null;
 
 
-    [SerializeField] float dashSpeed = 0f;
     [SerializeField] float speedMove = 0;
     [SerializeField] int maxLife = 0;
     int currentLife = 0;
@@ -24,8 +24,12 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] RectTransform targetPos = null;
     [SerializeField] float maxRangeTargetPos = 0;
 
+    [SerializeField] float dashSpeed = 0f;
+    [SerializeField] float dashCooldown = 0f;
     [SerializeField] float dashDuration = 0f;
     float dashTime = 0f;
+    float dashCooldownTimer = 0f;
+    bool canDash = true;
 
     Rigidbody rb;
 
@@ -36,6 +40,7 @@ public class Player : MonoBehaviour, ILife
     {
         currentLife = maxLife;
         dashTime = dashDuration;
+        dashCooldownTimer = dashCooldown;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -51,10 +56,22 @@ public class Player : MonoBehaviour, ILife
             transform.Translate(new Vector3(speedMove * Time.deltaTime, 0, 0), Space.World);
         if (Input.GetKey(KeyCode.Q) && !isDashing)
             transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0), Space.World);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
+            onDash.Invoke();
             dashDirection = transform.forward;
             isDashing = true;
+            canDash = false;
+        }
+
+        if (!canDash)
+        {
+            dashCooldownTimer -= Time.deltaTime;
+            if (dashCooldownTimer <= 0f)
+            {
+                canDash = true;
+                dashCooldownTimer = dashCooldown;
+            }
         }
 
         //Clamp pos if the soul is out
@@ -65,8 +82,6 @@ public class Player : MonoBehaviour, ILife
 
             if (selfToSoul.magnitude > radius)            
                 transform.position += selfToSoul.normalized * (selfToSoul.magnitude - radius);
-            
-
         }
 
 
@@ -79,12 +94,10 @@ public class Player : MonoBehaviour, ILife
             transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             targetPos.anchoredPosition3D = new Vector3(0, Mathf.Min(dir.magnitude, maxRangeTargetPos), 0);
 
-
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
                 soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
                 soulReal.GetComponent<Soul>().targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
-
             }
         }
     }
@@ -98,6 +111,7 @@ public class Player : MonoBehaviour, ILife
     void Dash()
     {
         dashTime -= Time.deltaTime;
+        rb.velocity = dashDirection * dashSpeed;
 
         if (dashTime < 0)
         {
@@ -106,7 +120,6 @@ public class Player : MonoBehaviour, ILife
             isDashing = false;
         }
 
-        rb.velocity = dashDirection * dashSpeed;
     }
 
 
