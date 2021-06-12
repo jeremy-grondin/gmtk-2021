@@ -43,6 +43,7 @@ public class Soul : MonoBehaviour
             if (canBePickupByPlayer)
             {
                 other.gameObject.GetComponent<Player>().soulReal = null;
+                other.gameObject.GetComponent<Player>().rangeFeedBack.SetActive(true);
                 Destroy(gameObject);
             }
         }
