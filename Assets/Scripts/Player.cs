@@ -71,7 +71,8 @@ public class Player : MonoBehaviour, ILife
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
                 soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
-                soulReal.GetComponent<Rigidbody>().AddForce(dir.normalized * 400);
+                soulReal.GetComponent<Soul>().targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
+
             }
         }
     }

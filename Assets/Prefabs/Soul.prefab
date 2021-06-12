@@ -319,8 +319,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5000305424185582349}
   - component: {fileID: 7934844887204259046}
-  - component: {fileID: 8075299180894256844}
   - component: {fileID: 5709801971782409374}
+  - component: {fileID: 82112999893204975}
   m_Layer: 0
   m_Name: Soul
   m_TagString: soul
@@ -357,7 +357,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &8075299180894256844
+--- !u!114 &5709801971782409374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029724983004316219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec79204210b450146abdd98f4ed397f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 15
+  targetPos: {x: 0, y: 0, z: 0}
+  speedMove: 10
+  colorWhenPickable: {fileID: 2100000, guid: a37d5b9241f598049a231228f68b4a20, type: 2}
+  auraToActivate: {fileID: 6338120730509061950}
+--- !u!54 &82112999893204975
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -373,19 +390,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5709801971782409374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9029724983004316219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec79204210b450146abdd98f4ed397f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 15
-  timer: 2
-  colorWhenPickable: {fileID: 2100000, guid: a37d5b9241f598049a231228f68b4a20, type: 2}
-  auraToActivate: {fileID: 6338120730509061950}
