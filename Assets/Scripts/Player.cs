@@ -20,29 +20,42 @@ public class Player : MonoBehaviour, ILife
     public GameObject soulReal = null;
     [SerializeField] Camera cam = null;
 
+    [SerializeField] Transform SoulStartPoint = null;
     [SerializeField] RectTransform targetPos = null;
     [SerializeField] float maxRangeTargetPos = 0;
+
+    [SerializeField] float dashDuration = 0f;
+    float dashTime = 0f;
+
+    Rigidbody rb;
+
+    Vector3 dashDirection;
 
 
     void Start()
     {
         currentLife = maxLife;
+        dashTime = dashDuration;
+        rb = GetComponent<Rigidbody>();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z) && !isDashing)
             transform.Translate(new Vector3(0, 0, speedMove * Time.deltaTime), Space.World);
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && !isDashing)
             transform.Translate(new Vector3(0, 0, -speedMove * Time.deltaTime), Space.World);
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && !isDashing)
             transform.Translate(new Vector3(speedMove * Time.deltaTime, 0, 0), Space.World);
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && !isDashing)
             transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0), Space.World);
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
+        {
+            dashDirection = transform.forward;
             isDashing = true;
+        }
 
         //Clamp pos if the soul is out
         if(soulReal != null)
@@ -69,8 +82,9 @@ public class Player : MonoBehaviour, ILife
 
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
-                soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
-                soulReal.GetComponent<Rigidbody>().AddForce(dir.normalized * 400);
+                soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
+                soulReal.GetComponent<Soul>().targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
+
             }
         }
     }
@@ -83,8 +97,16 @@ public class Player : MonoBehaviour, ILife
 
     void Dash()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
-        isDashing = false;
+        dashTime -= Time.deltaTime;
+
+        if (dashTime < 0)
+        {
+            dashTime = dashDuration;
+            rb.velocity = Vector3.zero;
+            isDashing = false;
+        }
+
+        rb.velocity = dashDirection * dashSpeed;
     }
 
 

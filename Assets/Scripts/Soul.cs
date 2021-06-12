@@ -6,7 +6,10 @@ public class Soul : MonoBehaviour
 {
     [SerializeField] public float radius = 0;
     bool canBePickupByPlayer = false;
-    [SerializeField] float timer = 2;
+
+
+    [SerializeField] public Vector3 targetPos = Vector3.zero;
+    [SerializeField] float speedMove = 0;
 
     [SerializeField] Material colorWhenPickable = null;
     [SerializeField] GameObject auraToActivate = null;
@@ -20,21 +23,21 @@ public class Soul : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timer > 0)
-        {
-            timer -= Time.deltaTime;
+        if (canBePickupByPlayer)
+            return;
 
-            if (timer <= 0)
-                EndPath();
-        }
+        Vector3 dir = (new Vector3(targetPos.x, 0, targetPos.z) - new Vector3(transform.position.x, 0, transform.position.z));
+        if(dir.magnitude < 0.1)
+            EndPath();
+        else
+            transform.position += dir.normalized * (speedMove * Time.deltaTime);
+
     }
 
 
 
     private void OnTriggerEnter(Collider other)
     {
-
-
         if (other.gameObject.CompareTag("Player"))
         {
             if (canBePickupByPlayer)
@@ -49,10 +52,8 @@ public class Soul : MonoBehaviour
 
     private void EndPath()
     {
-        timer = 0;
         canBePickupByPlayer = true;
         GetComponentInChildren<MeshRenderer>().material = colorWhenPickable;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
         auraToActivate.SetActive(true);
     }
 }
