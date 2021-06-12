@@ -74,7 +74,13 @@ public class EnemyMove : MonoBehaviour, ILife
         }
     }
 
-    public void TakeHit(int damage)
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radiusDetection);
+    }
+
+        public void TakeHit(int damage)
     {
         currentLife -= damage;
         if (onHit != null)

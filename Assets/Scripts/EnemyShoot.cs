@@ -41,6 +41,12 @@ public class EnemyShoot : MonoBehaviour, ILife
         }
 
     }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, rangeMax);
+    }
+
     public void TakeHit(int damage)
     {
         currentLife -= damage;
