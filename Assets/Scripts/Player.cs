@@ -62,7 +62,7 @@ public class Player : MonoBehaviour, ILife
 
         transform.Translate(finalTranslation.normalized * (speedMove * Time.deltaTime), Space.World);
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetMouseButtonDown(0) && canDash)
         {
             onDash.Invoke();
             dashDirection = transform.forward;
