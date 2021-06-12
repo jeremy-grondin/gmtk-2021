@@ -1323,6 +1323,11 @@ PrefabInstance:
       propertyPath: onHit.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 2051712370}
+    - target: {fileID: 840176020899505913, guid: 2c3015be2494ee74eb2000443f60d7be,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 2110272924}
     - target: {fileID: 1516155136825805257, guid: 2c3015be2494ee74eb2000443f60d7be,
         type: 3}
       propertyPath: m_Name
