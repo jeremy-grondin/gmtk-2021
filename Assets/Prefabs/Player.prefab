@@ -626,6 +626,7 @@ MonoBehaviour:
     type: 3}
   soulReal: {fileID: 0}
   cam: {fileID: 0}
+  SoulStartPoint: {fileID: 6573927404343872970}
   targetPos: {fileID: 1865308052}
   maxRangeTargetPos: 4.5
 --- !u!1 &4456500703016288569

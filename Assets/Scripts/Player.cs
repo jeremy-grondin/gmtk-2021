@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, ILife
     public GameObject soulReal = null;
     [SerializeField] Camera cam = null;
 
+    [SerializeField] Transform SoulStartPoint = null;
     [SerializeField] RectTransform targetPos = null;
     [SerializeField] float maxRangeTargetPos = 0;
 
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour, ILife
 
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
-                soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
+                soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
                 soulReal.GetComponent<Rigidbody>().AddForce(dir.normalized * 400);
             }
         }
