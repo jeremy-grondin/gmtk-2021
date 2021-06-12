@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] int maxLife = 0;
     public int currentLife = 0;
 
+    public LineRenderer chainLineRenderer = null;
     [SerializeField] GameObject soulGameObject = null;
     Soul soulScript = null;
     [SerializeField] Camera cam = null;
@@ -37,7 +38,6 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] ParticleSystem particule = null;
 
     Rigidbody rb;
-
     Vector3 dashDirection;
 
     void Start()
@@ -94,6 +94,10 @@ public class Player : MonoBehaviour, ILife
 
             if (selfToSoul.magnitude > radius)            
                 transform.position += selfToSoul.normalized * (selfToSoul.magnitude - radius);
+
+            chainLineRenderer.SetPosition(0, transform.position);
+            chainLineRenderer.SetPosition(1, soulGameObject.transform.position);
+
         }
 
 
@@ -111,12 +115,14 @@ public class Player : MonoBehaviour, ILife
                 if (onThrow != null)
                     onThrow.Invoke();
 
+                rangeFeedBack.SetActive(false);
+                chainLineRenderer.gameObject.SetActive(true);
                 soulGameObject.transform.position = SoulStartPoint.position;
+                soulScript.initialPos = SoulStartPoint.position;
                 soulGameObject.SetActive(true);
+                soulScript.targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
                 if (soulScript.onStartFlying != null)
                     soulScript.onStartFlying.Invoke();
-                soulScript.targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
-                rangeFeedBack.SetActive(false);
             }
         }
     }
