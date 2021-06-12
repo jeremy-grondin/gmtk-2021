@@ -49,6 +49,9 @@ public class Player : MonoBehaviour, ILife
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.isGamePause)
+            return;
+
         Vector3 finalTranslation = Vector3.zero;
 
         if (Input.GetKey(KeyCode.Z) && !isDashing)
@@ -92,7 +95,6 @@ public class Player : MonoBehaviour, ILife
             if (selfToSoul.magnitude > radius)            
                 transform.position += selfToSoul.normalized * (selfToSoul.magnitude - radius);
         }
-
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
