@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] Camera cam = null;
 
     [SerializeField] Transform SoulStartPoint = null;
+    [SerializeField] public GameObject rangeFeedBack = null;
     [SerializeField] RectTransform targetPos = null;
     [SerializeField] float maxRangeTargetPos = 0;
 
@@ -78,13 +79,13 @@ public class Player : MonoBehaviour, ILife
             Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z));
             transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             targetPos.anchoredPosition3D = new Vector3(0, Mathf.Min(dir.magnitude, maxRangeTargetPos), 0);
-
+            
 
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
                 soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
                 soulReal.GetComponent<Soul>().targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
-
+                rangeFeedBack.SetActive(false);
             }
         }
     }
