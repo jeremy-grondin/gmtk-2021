@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,6 +11,8 @@ public class EnemyMove : MonoBehaviour, ILife
     [SerializeField] UnityEvent startAttack = null;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
+
+    [SerializeField] UnityEvent onNeedToDestroy = null;
 
     [SerializeField] private int damage = 0;
     [SerializeField] private float damageCooldown = 0;
@@ -25,6 +27,7 @@ public class EnemyMove : MonoBehaviour, ILife
     NavMeshAgent navMeshAgent = null;
     [SerializeField] float radiusDetection = 0;
     bool isFollowing = false; //only used for unityEvent startFollowing and stopFollowing
+    [SerializeField] GameObject deathParticles = null;
 
     private void Start()
     {
@@ -90,7 +93,13 @@ public class EnemyMove : MonoBehaviour, ILife
         {
             if (onDeath != null)
                 onDeath.Invoke();
-            Destroy(gameObject);
         }
+    }
+    public void DestroyRoutine()
+    {
+        if (onNeedToDestroy != null)
+            onNeedToDestroy.Invoke();
+        Instantiate(deathParticles, this.transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

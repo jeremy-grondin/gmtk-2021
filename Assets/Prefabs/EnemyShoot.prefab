@@ -74,7 +74,7 @@ MonoBehaviour:
   bullet: {fileID: 2840481985677613617, guid: a91cefd29bc48c443b4febc11866b07f, type: 3}
   rangeMax: 13.41
   cooldownTime: 2
-  maxLife: 10
+  maxLife: 6
 --- !u!95 &7983358616254209369
 Animator:
   serializedVersion: 3
