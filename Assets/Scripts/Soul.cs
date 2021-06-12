@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Soul : MonoBehaviour
 {
+    [SerializeField] UnityEvent onPickUp = null;
+
+
     [SerializeField] public float radius = 0;
     bool canBePickupByPlayer = false;
 
@@ -42,6 +46,8 @@ public class Soul : MonoBehaviour
         {
             if (canBePickupByPlayer)
             {
+                if (onPickUp != null)
+                    onPickUp.Invoke();
                 other.gameObject.GetComponent<Player>().soulReal = null;
                 other.gameObject.GetComponent<Player>().rangeFeedBack.SetActive(true);
                 Destroy(gameObject);
