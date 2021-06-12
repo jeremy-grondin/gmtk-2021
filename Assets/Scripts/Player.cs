@@ -5,13 +5,13 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour, ILife
 {
-    [SerializeField] float dashSpeed = 0f;
 
     bool isDashing = false;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
 
 
+    [SerializeField] float dashSpeed = 0f;
     [SerializeField] float speedMove = 0;
     [SerializeField] int maxLife = 0;
     int currentLife = 0;
