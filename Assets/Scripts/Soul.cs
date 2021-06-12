@@ -8,12 +8,12 @@ public class Soul : MonoBehaviour
     [SerializeField] public UnityEvent onStartFlying = null;
     [SerializeField] UnityEvent onStartExplosion = null;
     [SerializeField] UnityEvent onPickUp = null;
+    [SerializeField] UnityEvent onEndExplode = null;
 
 
     [SerializeField] public float radius = 0;
-    bool canBePickupByPlayer = false;
-
-
+     bool canBePickupByPlayer = false;
+ 
     [SerializeField] public Vector3 targetPos = Vector3.zero;
     [SerializeField] float speedMove = 0;
 
@@ -41,7 +41,6 @@ public class Soul : MonoBehaviour
     }
 
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -58,6 +57,7 @@ public class Soul : MonoBehaviour
 
                 canBePickupByPlayer = false;
                 otherScript.rangeFeedBack.SetActive(true);
+                auraToActivate.SetActive(false);
                 gameObject.SetActive(false);
             }
         }
@@ -69,8 +69,15 @@ public class Soul : MonoBehaviour
     {
         if (onStartExplosion != null)
             onStartExplosion.Invoke();
+    }
+
+    public void EndExplosion()
+    {   
         canBePickupByPlayer = true;
         GetComponentInChildren<MeshRenderer>().material = colorWhenPickable;
         auraToActivate.SetActive(true);
+        if (onEndExplode != null)
+        onEndExplode.Invoke();
+        
     }
 }
