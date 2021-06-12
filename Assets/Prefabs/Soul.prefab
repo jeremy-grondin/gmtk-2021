@@ -84,6 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4408520655950823332}
   - component: {fileID: 3393142482771391938}
+  - component: {fileID: 8972550053876597402}
   m_Layer: 0
   m_Name: ColliderDamage
   m_TagString: Untagged
@@ -118,6 +119,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8972550053876597402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684190200921983453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98c8f2befe81b546a75579d1665e8a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagToDamage: Enemy
+  damage: 3
 --- !u!1 &5984603700582765114
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +610,9 @@ MonoBehaviour:
           m_StringArgument: pickedUp
           m_BoolArgument: 0
         m_CallState: 2
+  onEndExplode:
+    m_PersistentCalls:
+      m_Calls: []
   radius: 20
   targetPos: {x: 0, y: 0, z: 0}
   speedMove: 30
