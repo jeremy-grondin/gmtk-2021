@@ -32,10 +32,11 @@ public class Player : MonoBehaviour, ILife
     float dashCooldownTimer = 0f;
     bool canDash = true;
 
+    [SerializeField] ParticleSystem particule = null;
+
     Rigidbody rb;
 
     Vector3 dashDirection;
-
 
     void Start()
     {
@@ -44,7 +45,6 @@ public class Player : MonoBehaviour, ILife
         dashCooldownTimer = dashCooldown;
         rb = GetComponent<Rigidbody>();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -62,13 +62,15 @@ public class Player : MonoBehaviour, ILife
 
         transform.Translate(finalTranslation.normalized * (speedMove * Time.deltaTime), Space.World);
 
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             onDash.Invoke();
             dashDirection = transform.forward;
             isDashing = true;
             canDash = false;
+            ParticleSystem go =  Instantiate(particule, transform.position, transform.rotation * particule.transform.rotation);
+            go.Play();
+            Destroy(go.gameObject, go.main.duration);
         }
 
         if (!canDash)
