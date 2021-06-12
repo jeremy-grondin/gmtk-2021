@@ -141,6 +141,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681263cac0cb9d44499c390959bc3b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startFollowing:
+    m_PersistentCalls:
+      m_Calls: []
+  stopFollowing:
+    m_PersistentCalls:
+      m_Calls: []
   startAttack:
     m_PersistentCalls:
       m_Calls:
@@ -163,10 +169,11 @@ MonoBehaviour:
       m_Calls: []
   damage: 1
   damageCooldown: 1
-  speed: 10
+  speed: 5
   maxLife: 1
   stoppingDist: 2.5
   target: {fileID: 0}
+  radiusDetection: 10
 --- !u!195 &1089890480891110885
 NavMeshAgent:
   m_ObjectHideFlags: 0
