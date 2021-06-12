@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Soul : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] public float radius = 0;
     bool canBePickupByPlayer = false;
+    [SerializeField] float timer = 2;
 
-    [SerializeField]
-    float timer = 2;
+    [SerializeField] Material colorWhenPickable = null;
+    [SerializeField] GameObject auraToActivate = null;
 
-    [SerializeField]
-    Material colorWhenPickable = null;
 
+    private void Start()
+    {
+        auraToActivate.transform.localScale = new Vector3(radius, radius, 1);
+    }
 
     // Update is called once per frame
     void Update()
@@ -22,11 +25,7 @@ public class Soul : MonoBehaviour
             timer -= Time.deltaTime;
 
             if (timer <= 0)
-            {
-                canBePickupByPlayer = true;
-                GetComponent<MeshRenderer>().material = colorWhenPickable;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-            }
+                EndPath();
         }
     }
 
@@ -34,10 +33,26 @@ public class Soul : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && canBePickupByPlayer)
+
+
+        if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player>().soulReal = null;
-            Destroy(gameObject);
+            if (canBePickupByPlayer)
+            {
+                other.gameObject.GetComponent<Player>().soulReal = null;
+                Destroy(gameObject);
+            }
         }
+        else
+            EndPath();
+    }
+
+    private void EndPath()
+    {
+        timer = 0;
+        canBePickupByPlayer = true;
+        GetComponentInChildren<MeshRenderer>().material = colorWhenPickable;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        auraToActivate.SetActive(true);
     }
 }
