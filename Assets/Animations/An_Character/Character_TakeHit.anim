@@ -26,8 +26,8 @@ AnimationClip:
     - time: 0.16666667
       value: {fileID: 2100000, guid: 9c848183ad83f9a4e933477ba61f089b, type: 2}
     attribute: m_Materials.Array.data[0]
-    path: Mesh
-    classID: 23
+    path: Player
+    classID: 137
     script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
@@ -37,10 +37,10 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1096652136
+      path: 2679471955
       attribute: 0
       script: {fileID: 0}
-      typeID: 23
+      typeID: 137
       customType: 21
       isPPtrCurve: 1
     pptrCurveMapping:
