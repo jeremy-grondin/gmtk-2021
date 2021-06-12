@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class Soul : MonoBehaviour
 {
+    [SerializeField] public UnityEvent onStartFlying = null;
+    [SerializeField] UnityEvent onStartExplosion = null;
     [SerializeField] UnityEvent onPickUp = null;
 
 
@@ -65,6 +67,8 @@ public class Soul : MonoBehaviour
 
     private void EndPath()
     {
+        if (onStartExplosion != null)
+            onStartExplosion.Invoke();
         canBePickupByPlayer = true;
         GetComponentInChildren<MeshRenderer>().material = colorWhenPickable;
         auraToActivate.SetActive(true);

@@ -111,7 +111,10 @@ public class Player : MonoBehaviour, ILife
                     onThrow.Invoke();
 
                 soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
-                soulReal.GetComponent<Soul>().targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
+                Soul soulScript = soulReal.GetComponent<Soul>();
+                if (soulScript.onStartFlying != null)
+                    soulScript.onStartFlying.Invoke();
+                soulScript.targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
                 rangeFeedBack.SetActive(false);
             }
         }
