@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour, ILife
 {
+    [SerializeField] float dashSpeed = 0f;
+
+    bool isDashing = false;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
 
@@ -38,6 +41,8 @@ public class Player : MonoBehaviour, ILife
             transform.Translate(new Vector3(speedMove * Time.deltaTime, 0, 0), Space.World);
         if (Input.GetKey(KeyCode.Q))
             transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0), Space.World);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            isDashing = true;
 
         //Clamp pos if the soul is out
         if(soulReal != null)
@@ -67,10 +72,20 @@ public class Player : MonoBehaviour, ILife
                 soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
                 soulReal.GetComponent<Rigidbody>().AddForce(dir.normalized * 400);
             }
-
         }
     }
 
+    void FixedUpdate()
+    {
+        if (isDashing)
+            Dash();
+    }
+
+    void Dash()
+    {
+        GetComponent<Rigidbody>().AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
+        isDashing = false;
+    }
 
 
     public void TakeHit(int damage)
