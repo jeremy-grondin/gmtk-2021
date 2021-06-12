@@ -5,13 +5,13 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour, ILife
 {
-    [SerializeField] float dashSpeed = 0f;
 
     bool isDashing = false;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
 
 
+    [SerializeField] float dashSpeed = 0f;
     [SerializeField] float speedMove = 0;
     [SerializeField] int maxLife = 0;
     int currentLife = 0;
@@ -19,6 +19,9 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] GameObject soulPrefab = null;
     public GameObject soulReal = null;
     [SerializeField] Camera cam = null;
+
+    [SerializeField] RectTransform targetPos = null;
+    [SerializeField] float maxRangeTargetPos = 0;
 
 
     void Start()
@@ -59,13 +62,15 @@ public class Player : MonoBehaviour, ILife
 
         if (Physics.Raycast(ray, out hit, 100.0f))
         {
-            Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+            Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z));
             transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            targetPos.anchoredPosition3D = new Vector3(0, Mathf.Min(dir.magnitude, maxRangeTargetPos), 0);
+
 
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
                 soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
-                soulReal.GetComponent<Rigidbody>().AddForce(dir * 400);
+                soulReal.GetComponent<Rigidbody>().AddForce(dir.normalized * 400);
             }
         }
     }

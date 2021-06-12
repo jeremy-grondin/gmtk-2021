@@ -565,7 +565,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &840176020899505913
 MonoBehaviour:
@@ -579,7 +579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703c957ea2044d34399f5af0d736a74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 10
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -620,12 +619,15 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  dashSpeed: 10
   speedMove: 10
   maxLife: 10
   soulPrefab: {fileID: 9029724983004316219, guid: 33adc6e6eebb7be47b056c93639b34a4,
     type: 3}
   soulReal: {fileID: 0}
   cam: {fileID: 0}
+  targetPos: {fileID: 1865308052}
+  maxRangeTargetPos: 4.5
 --- !u!1 &4456500703016288569
 GameObject:
   m_ObjectHideFlags: 0
