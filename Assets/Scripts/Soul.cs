@@ -48,8 +48,14 @@ public class Soul : MonoBehaviour
             {
                 if (onPickUp != null)
                     onPickUp.Invoke();
-                other.gameObject.GetComponent<Player>().soulReal = null;
-                other.gameObject.GetComponent<Player>().rangeFeedBack.SetActive(true);
+
+                Player otherScript = other.gameObject.GetComponent<Player>();
+
+                if (otherScript.onPickUp != null)
+                    otherScript.onPickUp.Invoke();
+
+                otherScript.soulReal = null;
+                otherScript.rangeFeedBack.SetActive(true);
                 Destroy(gameObject);
             }
         }

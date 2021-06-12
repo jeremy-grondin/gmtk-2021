@@ -8,6 +8,7 @@ public class Player : MonoBehaviour, ILife
 
     bool isDashing = false;
     [SerializeField] UnityEvent onThrow = null;
+    [SerializeField] public UnityEvent onPickUp = null;
     [SerializeField] UnityEvent onDash = null;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
