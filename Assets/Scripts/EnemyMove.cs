@@ -28,6 +28,8 @@ public class EnemyMove : MonoBehaviour, ILife
     [SerializeField] float radiusDetection = 0;
     bool isFollowing = false; //only used for unityEvent startFollowing and stopFollowing
     [SerializeField] GameObject deathParticles = null;
+    private Animator animator;
+
 
     private void Start()
     {
@@ -93,13 +95,15 @@ public class EnemyMove : MonoBehaviour, ILife
         {
             if (onDeath != null)
                 onDeath.Invoke();
+            animator = GetComponentInChildren<Animator>();
+            animator.SetBool("dead",true);
         }
     }
     public void DestroyRoutine()
     {
         if (onNeedToDestroy != null)
             onNeedToDestroy.Invoke();
-        Instantiate(deathParticles, this.transform.position, Quaternion.identity);
+        Instantiate(deathParticles);
         Destroy(gameObject);
     }
 }
