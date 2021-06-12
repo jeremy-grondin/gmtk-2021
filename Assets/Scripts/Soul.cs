@@ -13,8 +13,9 @@ public class Soul : MonoBehaviour
 
     [SerializeField] public float radius = 0;
      bool canBePickupByPlayer = false;
- 
+
     [SerializeField] public Vector3 targetPos = Vector3.zero;
+    [HideInInspector] public Vector3 initialPos = Vector3.zero;
     [SerializeField] float speedMove = 0;
 
     [SerializeField] Material colorWhenPickable = null;
@@ -33,7 +34,7 @@ public class Soul : MonoBehaviour
             return;
 
         Vector3 dir = (new Vector3(targetPos.x, 0, targetPos.z) - new Vector3(transform.position.x, 0, transform.position.z));
-        if(dir.magnitude < 0.1)
+        if((new Vector3(initialPos.x, 0, initialPos.z) - new Vector3(transform.position.x, 0, transform.position.z)).magnitude >= (new Vector3(initialPos.x, 0, initialPos.z) - new Vector3(targetPos.x, 0, targetPos.z)).magnitude)
             EndPath();
         else
             transform.position += dir.normalized * (speedMove * Time.deltaTime);
@@ -50,13 +51,14 @@ public class Soul : MonoBehaviour
                 if (onPickUp != null)
                     onPickUp.Invoke();
 
-                Player otherScript = other.gameObject.GetComponent<Player>();
+                Player playerScript = other.gameObject.GetComponent<Player>();
 
-                if (otherScript.onPickUp != null)
-                    otherScript.onPickUp.Invoke();
+                if (playerScript.onPickUp != null)
+                    playerScript.onPickUp.Invoke();
 
+                playerScript.rangeFeedBack.SetActive(true);
+                playerScript.chainLineRenderer.gameObject.SetActive(false);
                 canBePickupByPlayer = false;
-                otherScript.rangeFeedBack.SetActive(true);
                 auraToActivate.SetActive(false);
                 gameObject.SetActive(false);
             }
