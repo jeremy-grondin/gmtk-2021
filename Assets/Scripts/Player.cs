@@ -17,6 +17,9 @@ public class Player : MonoBehaviour, ILife
     public GameObject soulReal = null;
     [SerializeField] Camera cam = null;
 
+    [SerializeField] RectTransform targetPos = null;
+    [SerializeField] float maxRangeTargetPos = 0;
+
 
     void Start()
     {
@@ -54,13 +57,15 @@ public class Player : MonoBehaviour, ILife
 
         if (Physics.Raycast(ray, out hit, 100.0f))
         {
-            Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+            Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z));
             transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+            targetPos.anchoredPosition3D = new Vector3(0, Mathf.Min(dir.magnitude, maxRangeTargetPos), 0);
+
 
             if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
                 soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
-                soulReal.GetComponent<Rigidbody>().AddForce(dir * 400);
+                soulReal.GetComponent<Rigidbody>().AddForce(dir.normalized * 400);
             }
 
         }

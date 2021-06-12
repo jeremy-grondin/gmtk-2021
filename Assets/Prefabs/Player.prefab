@@ -624,6 +624,9 @@ MonoBehaviour:
   soulPrefab: {fileID: 9029724983004316219, guid: 33adc6e6eebb7be47b056c93639b34a4,
     type: 3}
   soulReal: {fileID: 0}
+  cam: {fileID: 0}
+  targetPos: {fileID: 1865308052}
+  maxRangeTargetPos: 4.5
 --- !u!1 &4456500703016288569
 GameObject:
   m_ObjectHideFlags: 0
