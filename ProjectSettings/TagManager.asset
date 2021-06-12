@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - soul
+  - Enemy
   layers:
   - Default
   - TransparentFX

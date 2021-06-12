@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : MonoBehaviour, ILife
 {
     [SerializeField] UnityEvent startFollowing = null;
     [SerializeField] UnityEvent stopFollowing = null;
@@ -21,7 +21,7 @@ public class EnemyMove : MonoBehaviour
     int currentLife = 0;
     [SerializeField] private float stoppingDist = 0;
 
-    [SerializeField] GameObject target = null;
+    [SerializeField] GameObject player = null;
     NavMeshAgent navMeshAgent = null;
     [SerializeField] float radiusDetection = 0;
     bool isFollowing = false; //only used for unityEvent startFollowing and stopFollowing
@@ -40,7 +40,7 @@ public class EnemyMove : MonoBehaviour
             damageCurrentCooldown -= Time.deltaTime;
 
         //don't follow Player
-        if ((transform.position - target.transform.position).magnitude > radiusDetection)
+        if ((transform.position - player.transform.position).magnitude > radiusDetection)
         {
             if (isFollowing && stopFollowing != null)
                 stopFollowing.Invoke();
@@ -55,8 +55,8 @@ public class EnemyMove : MonoBehaviour
             isFollowing = true;
 
             //Continue to follow
-            if ((transform.position - target.transform.position).magnitude > stoppingDist)
-                navMeshAgent.SetDestination(target.transform.position);
+            if ((transform.position - player.transform.position).magnitude > stoppingDist)
+                navMeshAgent.SetDestination(player.transform.position);
             //Close enough
             else
             {
@@ -65,7 +65,7 @@ public class EnemyMove : MonoBehaviour
                 if (damageCurrentCooldown <= 0)
                 {
                     damageCurrentCooldown = damageCooldown;
-                    target.GetComponent<ILife>().TakeHit(damage);
+                    player.GetComponent<ILife>().TakeHit(damage);
                     if (startAttack != null)
                         startAttack.Invoke();
                 }
