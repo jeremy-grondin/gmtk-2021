@@ -205,7 +205,7 @@ MonoBehaviour:
   speed: 5
   maxLife: 1
   stoppingDist: 2.5
-  target: {fileID: 0}
+  player: {fileID: 0}
   radiusDetection: 10
 --- !u!195 &1089890480891110885
 NavMeshAgent:

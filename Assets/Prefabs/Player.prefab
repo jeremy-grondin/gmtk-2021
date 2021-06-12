@@ -753,7 +753,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &840176020899505913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +766,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703c957ea2044d34399f5af0d736a74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDash:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2146648132}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: isDashing
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2146648126}
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: c6e28f5f1afefb04489dcd2af97dbd9e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -806,32 +832,6 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
-  onDash:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2146648132}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: isDashing
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2146648126}
-        m_MethodName: PlayOneShot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: c6e28f5f1afefb04489dcd2af97dbd9e,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   speedMove: 10
   maxLife: 10
   soulPrefab: {fileID: 9029724983004316219, guid: 33adc6e6eebb7be47b056c93639b34a4,
