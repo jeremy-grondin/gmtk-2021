@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class EnemyMove : MonoBehaviour
 {
+    [SerializeField] UnityEvent startFollowing = null;
+    [SerializeField] UnityEvent stopFollowing = null;
     [SerializeField] UnityEvent startAttack = null;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
@@ -19,8 +21,10 @@ public class EnemyMove : MonoBehaviour
     int currentLife = 0;
     [SerializeField] private float stoppingDist = 0;
 
-    public GameObject target = null;
+    [SerializeField] GameObject target = null;
     NavMeshAgent navMeshAgent = null;
+    [SerializeField] float radiusDetection = 0;
+    bool isFollowing = false; //only used for unityEvent startFollowing and stopFollowing
 
     private void Start()
     {
@@ -35,21 +39,38 @@ public class EnemyMove : MonoBehaviour
         if(damageCurrentCooldown > 0)
             damageCurrentCooldown -= Time.deltaTime;
 
-
-        if ((transform.position - target.transform.position).magnitude > stoppingDist)
-            navMeshAgent.SetDestination(target.transform.position);
+        //don't follow Player
+        if ((transform.position - target.transform.position).magnitude > radiusDetection)
+        {
+            if (isFollowing && stopFollowing != null)
+                stopFollowing.Invoke();
+            isFollowing = false;
+            navMeshAgent.velocity = Vector3.zero;
+        }
+        //follow Player
         else
         {
-            navMeshAgent.velocity = Vector3.zero;
+            if (!isFollowing && startFollowing != null)
+                startFollowing.Invoke();
+            isFollowing = true;
 
-            if(damageCurrentCooldown <= 0)
+            //Continue to follow
+            if ((transform.position - target.transform.position).magnitude > stoppingDist)
+                navMeshAgent.SetDestination(target.transform.position);
+            //Close enough
+            else
             {
-                damageCurrentCooldown = damageCooldown;
-                target.GetComponent<ILife>().TakeHit(damage);
-                if(startAttack != null)
-                    startAttack.Invoke();
-            }
+                navMeshAgent.velocity = Vector3.zero;
 
+                if (damageCurrentCooldown <= 0)
+                {
+                    damageCurrentCooldown = damageCooldown;
+                    target.GetComponent<ILife>().TakeHit(damage);
+                    if (startAttack != null)
+                        startAttack.Invoke();
+                }
+
+            }
         }
     }
 
