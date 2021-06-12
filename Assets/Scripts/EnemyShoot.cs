@@ -42,7 +42,7 @@ public class EnemyShoot : MonoBehaviour, ILife
 
                 currentCooldownTime = cooldownTime;
                 GameObject clone = Instantiate(bullet, transform.position, transform.rotation);
-                clone.gameObject.GetComponent<Bullet>().destination = player.position;
+                clone.gameObject.GetComponent<Bullet>().direction = player.position - transform.position;
             }
         }
 
