@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, ILife
 
     [SerializeField] GameObject soulPrefab = null;
     public GameObject soulReal = null;
+    [SerializeField] Camera cam = null;
 
 
     void Start()
@@ -27,14 +28,15 @@ public class Player : MonoBehaviour, ILife
     void Update()
     {
         if (Input.GetKey(KeyCode.Z))
-            transform.Translate(new Vector3(0, 0, speedMove * Time.deltaTime));
+            transform.Translate(new Vector3(0, 0, speedMove * Time.deltaTime), Space.World);
         if (Input.GetKey(KeyCode.S))
-            transform.Translate(new Vector3(0, 0, -speedMove * Time.deltaTime));
+            transform.Translate(new Vector3(0, 0, -speedMove * Time.deltaTime), Space.World);
         if (Input.GetKey(KeyCode.D))
-            transform.Translate(new Vector3(speedMove * Time.deltaTime, 0, 0));
+            transform.Translate(new Vector3(speedMove * Time.deltaTime, 0, 0), Space.World);
         if (Input.GetKey(KeyCode.Q))
-            transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0));
+            transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0), Space.World);
 
+        //Clamp pos if the soul is out
         if(soulReal != null)
         {
             float radius = soulReal.GetComponent<Soul>().radius / 2;
@@ -47,17 +49,17 @@ public class Player : MonoBehaviour, ILife
         }
 
 
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-        if (Input.GetMouseButtonDown(1) && soulReal == null)
+        if (Physics.Raycast(ray, out hit, 100.0f))
         {
-            soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
+            Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, 100.0f))
+            if (Input.GetMouseButtonDown(1) && soulReal == null)
             {
-                Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+                soulReal = Instantiate(soulPrefab, transform.position, Quaternion.identity);
                 soulReal.GetComponent<Rigidbody>().AddForce(dir * 400);
             }
 
