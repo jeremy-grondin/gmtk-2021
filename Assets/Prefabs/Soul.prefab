@@ -371,7 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 15
   targetPos: {x: 0, y: 0, z: 0}
-  speedMove: 10
+  speedMove: 15
   colorWhenPickable: {fileID: 2100000, guid: a37d5b9241f598049a231228f68b4a20, type: 2}
   auraToActivate: {fileID: 6338120730509061950}
 --- !u!54 &82112999893204975
