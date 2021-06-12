@@ -44,14 +44,20 @@ public class Player : MonoBehaviour, ILife
     // Update is called once per frame
     void Update()
     {
+        Vector3 finalTranslation = Vector3.zero;
+
         if (Input.GetKey(KeyCode.Z) && !isDashing)
-            transform.Translate(new Vector3(0, 0, speedMove * Time.deltaTime), Space.World);
+            finalTranslation.z += 1; 
         if (Input.GetKey(KeyCode.S) && !isDashing)
-            transform.Translate(new Vector3(0, 0, -speedMove * Time.deltaTime), Space.World);
+            finalTranslation.z -= 1;
         if (Input.GetKey(KeyCode.D) && !isDashing)
-            transform.Translate(new Vector3(speedMove * Time.deltaTime, 0, 0), Space.World);
+            finalTranslation.x += 1;
         if (Input.GetKey(KeyCode.Q) && !isDashing)
-            transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0), Space.World);
+            finalTranslation.x -= 1;
+
+        transform.Translate(finalTranslation.normalized * (speedMove * Time.deltaTime), Space.World);
+
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
         {
             dashDirection = transform.forward;
