@@ -14,7 +14,7 @@ public class Soul : MonoBehaviour
 
     private void Start()
     {
-        auraToActivate.transform.localScale = new Vector3(radius, 0.1f, radius);
+        auraToActivate.transform.localScale = new Vector3(radius, radius, 1);
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class Soul : MonoBehaviour
     {
         timer = 0;
         canBePickupByPlayer = true;
-        GetComponent<MeshRenderer>().material = colorWhenPickable;
+        GetComponentInChildren<MeshRenderer>().material = colorWhenPickable;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         auraToActivate.SetActive(true);
     }
