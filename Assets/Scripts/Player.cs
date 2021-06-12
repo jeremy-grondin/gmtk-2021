@@ -14,7 +14,7 @@ public class Player : MonoBehaviour, ILife
 
     [SerializeField] float speedMove = 0;
     [SerializeField] int maxLife = 0;
-    int currentLife = 0;
+    public int currentLife = 0;
 
     [SerializeField] GameObject soulPrefab = null;
     public GameObject soulReal = null;
