@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    float speedMove = 0;
+    [SerializeField] float speedMove = 0;
 
-    [SerializeField]
-    GameObject soulPrefab = null;
+    [SerializeField] GameObject soulPrefab = null;
+
+    [SerializeField] float dashSpeed = 0f;
+
+    bool isDashing = false;
 
     public GameObject soulReal = null;
 
@@ -23,6 +25,8 @@ public class Player : MonoBehaviour
             transform.Translate(new Vector3(speedMove * Time.deltaTime, 0, 0));
         if (Input.GetKey(KeyCode.Q))
             transform.Translate(new Vector3(-speedMove * Time.deltaTime, 0, 0));
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            isDashing = true;
 
         if (Input.GetMouseButtonDown(1) && soulReal == null)
         {
@@ -36,8 +40,18 @@ public class Player : MonoBehaviour
                 Vector3 dir = (new Vector3(hit.point.x, 0, hit.point.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
                 soulReal.GetComponent<Rigidbody>().AddForce(dir * 100);
             }
-
         }
     }
 
+    void FixedUpdate()
+    {
+        if (isDashing)
+            Dash();
+    }
+
+    void Dash()
+    {
+        GetComponent<Rigidbody>().AddForce(transform.forward * dashSpeed, ForceMode.Impulse);
+        isDashing = false;
+    }
 }
