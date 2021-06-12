@@ -18,8 +18,8 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] int maxLife = 0;
     public int currentLife = 0;
 
-    [SerializeField] GameObject soulPrefab = null;
-    public GameObject soulReal = null;
+    [SerializeField] GameObject soulGameObject = null;
+    Soul soulScript = null;
     [SerializeField] Camera cam = null;
 
     [SerializeField] Transform SoulStartPoint = null;
@@ -46,6 +46,7 @@ public class Player : MonoBehaviour, ILife
         dashTime = dashDuration;
         dashCooldownTimer = dashCooldown;
         rb = GetComponent<Rigidbody>();
+        soulScript = soulGameObject.GetComponent<Soul>();
     }
 
     // Update is called once per frame
@@ -86,10 +87,10 @@ public class Player : MonoBehaviour, ILife
         }
 
         //Clamp pos if the soul is out
-        if(soulReal != null)
+        if (soulGameObject.activeSelf)
         {
-            float radius = soulReal.GetComponent<Soul>().radius / 2;
-            Vector3 selfToSoul = (soulReal.transform.position - transform.position);
+            float radius = soulScript.radius / 2;
+            Vector3 selfToSoul = (soulGameObject.transform.position - transform.position);
 
             if (selfToSoul.magnitude > radius)            
                 transform.position += selfToSoul.normalized * (selfToSoul.magnitude - radius);
@@ -105,13 +106,13 @@ public class Player : MonoBehaviour, ILife
             transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             targetPos.anchoredPosition3D = new Vector3(0, Mathf.Min(dir.magnitude, maxRangeTargetPos), 0);
 
-            if (Input.GetMouseButtonDown(1) && soulReal == null)
+            if (Input.GetMouseButtonDown(1) && !soulGameObject.activeSelf)
             {
                 if (onThrow != null)
                     onThrow.Invoke();
 
-                soulReal = Instantiate(soulPrefab, SoulStartPoint.position, Quaternion.identity);
-                Soul soulScript = soulReal.GetComponent<Soul>();
+                soulGameObject.transform.position = SoulStartPoint.position;
+                soulGameObject.SetActive(true);
                 if (soulScript.onStartFlying != null)
                     soulScript.onStartFlying.Invoke();
                 soulScript.targetPos = transform.position + transform.forward * Mathf.Min(dir.magnitude, maxRangeTargetPos);
