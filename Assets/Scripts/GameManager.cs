@@ -20,11 +20,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            isGamePause = true;
-            pauseMenu.SetActive(true);
-            Time.timeScale = 0.0f;
-        }
+            Resume();
     }
 
     public void GoToMainMenu()
@@ -39,9 +35,9 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
-        isGamePause = false;
-        Time.timeScale = 1.0f;
-        pauseMenu.SetActive(false);
+        isGamePause = !isGamePause;
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        Time.timeScale = (Time.timeScale == 0) ? 1.0f : 0.0f;
     }
 
     public void QuitApp()
