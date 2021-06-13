@@ -352,6 +352,8 @@ MonoBehaviour:
   damageCooldown: 1
   speed: 5
   maxLife: 1
+  canvasToScaleWithLife: {fileID: 7733816356926245374}
+  minimumScaleOfCanvas: 0.3
   stoppingDist: 2.5
   player: {fileID: 0}
   radiusDetection: 20
@@ -663,6 +665,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7612823152092423264}
     m_Modifications:
+    - target: {fileID: 2224676507172168737, guid: 715981ea616affb4bbac1b2c8a550855,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7378584150931743773, guid: 715981ea616affb4bbac1b2c8a550855,
         type: 3}
       propertyPath: m_Name
@@ -778,6 +785,12 @@ PrefabInstance:
 --- !u!224 &538875167137339421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8282632513916417474, guid: 715981ea616affb4bbac1b2c8a550855,
+    type: 3}
+  m_PrefabInstance: {fileID: 8470050988224851423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7733816356926245374 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2224676507172168737, guid: 715981ea616affb4bbac1b2c8a550855,
     type: 3}
   m_PrefabInstance: {fileID: 8470050988224851423}
   m_PrefabAsset: {fileID: 0}

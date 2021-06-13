@@ -22,7 +22,7 @@ public class HUD : MonoBehaviour
 
     public void PlayerHit()
     {
-        int playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentLife;
+        float playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentLife;
         Debug.Log("Life loss");
 
         switch(playerLife)
