@@ -27,6 +27,7 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] public GameObject rangeFeedBack = null;
     [SerializeField] RectTransform targetPos = null;
     [SerializeField] float maxRangeTargetPos = 0;
+    [SerializeField] RectTransform canvasAimingToScaleWithRange = null;
 
     [SerializeField] float dashSpeed = 0f;
     [SerializeField] float dashCooldown = 0f;
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour, ILife
         dashCooldownTimer = dashCooldown;
         rb = GetComponent<Rigidbody>();
         soulScript = soulGameObject.GetComponent<Soul>();
+        canvasAimingToScaleWithRange.localScale = new Vector3(maxRangeTargetPos, maxRangeTargetPos, maxRangeTargetPos);
     }
 
     // Update is called once per frame
