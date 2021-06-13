@@ -65,7 +65,7 @@ public class Soul : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-        else if (!other.gameObject.CompareTag("Ground") && !reachPos)
+        else if (!other.gameObject.CompareTag("Ground") && !other.gameObject.CompareTag("Enemy") && !reachPos)
             EndPath();
     }
 

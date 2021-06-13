@@ -355,7 +355,6 @@ MonoBehaviour:
   canvasToScaleWithLife: {fileID: 7733816356926245374}
   minimumScaleOfCanvas: 0.3
   stoppingDist: 2.5
-  player: {fileID: 0}
   radiusDetection: 20
   deathParticles: {fileID: 1103514418605368035, guid: 7fe952661279793458d8d8114787fa25,
     type: 3}

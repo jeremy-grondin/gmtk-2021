@@ -443,7 +443,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  player: {fileID: 0}
   bullet: {fileID: 2840481985677613617, guid: a91cefd29bc48c443b4febc11866b07f, type: 3}
   bulletSpawnPoint: {fileID: 4074313187491367035}
   rangeMax: 20
