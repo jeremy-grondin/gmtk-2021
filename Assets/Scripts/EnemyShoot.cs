@@ -20,8 +20,11 @@ public class EnemyShoot : MonoBehaviour, ILife
     [Header("Shooting")]
 
     [SerializeField] float rangeMax = 0;
-    [SerializeField] float cooldownTime = 0;
+    [SerializeField] float cooldownTimeBetweenWaves = 0;
+    [SerializeField] float cooldownTimeBetweenBullets = 0;
+    [SerializeField] int nbOfBulletsInWaves = 0;
     float currentCooldownTime = 0;
+    int currentNbOfbulletShot = 0;
 
     [Header("Health")]
     [SerializeField] float maxLife = 0;
@@ -60,9 +63,17 @@ public class EnemyShoot : MonoBehaviour, ILife
                 if (startShoot != null)
                     startShoot.Invoke();
 
-                currentCooldownTime = cooldownTime;
+                //shoot bullet
+                currentCooldownTime = cooldownTimeBetweenBullets;
+                currentNbOfbulletShot++;
                 GameObject clone = Instantiate(bullet, bulletSpawnPoint.transform.position, transform.rotation);                
                 clone.gameObject.GetComponent<Bullet>().direction = player.position - transform.position;
+                
+                if(currentNbOfbulletShot == nbOfBulletsInWaves) // can be replaced by if(currentNbOfbulletShot % nbOfBulletsInWaves == 0)
+                {
+                    currentCooldownTime = cooldownTimeBetweenWaves;
+                    currentNbOfbulletShot = 0;
+                }
             }
         }
         else
