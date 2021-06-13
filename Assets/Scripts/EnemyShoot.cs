@@ -6,19 +6,26 @@ using UnityEngine.Events;
 public class EnemyShoot : MonoBehaviour, ILife
 {
     [SerializeField] UnityEvent startShoot = null;
+    
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
+    [SerializeField] UnityEvent onNeedToDestroy = null;
 
     [SerializeField] Transform player = null;
     [SerializeField] GameObject bullet = null;
 
+    [Header("Shooting")]
 
     [SerializeField] float rangeMax = 0;
     [SerializeField] float cooldownTime = 0;
     float currentCooldownTime = 0;
 
+    [Header("Health")]
     [SerializeField] int maxLife = 0;
     int currentLife = 0;
+    [SerializeField] GameObject deathParticles = null;
+
+    private Animator animator;
 
     private void Start()
     {
@@ -63,7 +70,15 @@ public class EnemyShoot : MonoBehaviour, ILife
         {
             if (onDeath != null)
                 onDeath.Invoke();
-            Destroy(gameObject);
+            animator = GetComponentInChildren<Animator>();
+            animator.SetBool("dead",true);
         }
+    }
+   public void DestroyRoutine()
+    {
+        if (onNeedToDestroy != null)
+            onNeedToDestroy.Invoke();
+        GameObject clone = Instantiate(deathParticles, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 }

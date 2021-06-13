@@ -366,7 +366,7 @@ RectTransform:
   m_GameObject: {fileID: 1082614699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 9, y: 9, z: 1}
   m_Children:
   - {fileID: 116031394}
   m_Father: {fileID: 1695992384}
@@ -523,7 +523,7 @@ RectTransform:
   m_GameObject: {fileID: 1865308051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1695992384}
   m_RootOrder: 1
@@ -930,18 +930,19 @@ MonoBehaviour:
           m_StringArgument: isDead
           m_BoolArgument: 0
         m_CallState: 2
-  speedMove: 10
+  speedMove: 20
   maxLife: 3
   currentLife: 0
+  chainLineRenderer: {fileID: 0}
   soulGameObject: {fileID: 0}
   cam: {fileID: 0}
   SoulStartPoint: {fileID: 6573927404343872970}
   rangeFeedBack: {fileID: 1695992383}
   targetPos: {fileID: 1865308052}
-  maxRangeTargetPos: 6
+  maxRangeTargetPos: 9
   dashSpeed: 55
   dashCooldown: 0.4
-  dashDuration: 0.15
+  dashDuration: 0.25
   particule: {fileID: 1103514418605368030, guid: 1087b8c7ba2fdf74aabbcb08d790bf36,
     type: 3}
 --- !u!1 &1831141075825201799
