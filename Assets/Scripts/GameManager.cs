@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,16 +16,18 @@ public class GameManager : MonoBehaviour
 
     public int nbEnemies = 0;
 
+    Text enemyText = null;
+
     // Start is called before the first frame update
     void Start()
     {
+        enemyText = GameObject.FindGameObjectWithTag("enemyText").GetComponent<Text>();
         pauseMenu.SetActive(false);
         deathMenu.SetActive(false);
         victoryMenu.SetActive(false);
 
         nbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
-
-        Debug.Log("Nb Enemies" + nbEnemies);
+        enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
     }
 
     // Update is called once per frame
@@ -67,8 +70,12 @@ public class GameManager : MonoBehaviour
         nbEnemies--;
         if (nbEnemies <= 0)
         {
-            enemiesAllDead.Invoke();
-            victoryMenu.SetActive(true);
+            nbEnemies = 0;
+            if (enemiesAllDead != null)
+                enemiesAllDead.Invoke();
+            
+            //victoryMenu.SetActive(true);
         }
+        enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
     }
 }
