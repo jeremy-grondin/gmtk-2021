@@ -447,7 +447,9 @@ MonoBehaviour:
   bullet: {fileID: 2840481985677613617, guid: a91cefd29bc48c443b4febc11866b07f, type: 3}
   bulletSpawnPoint: {fileID: 4074313187491367035}
   rangeMax: 20
-  cooldownTime: 0.5
+  cooldownTimeBetweenWaves: 2
+  cooldownTimeBetweenBullets: 0.5
+  nbOfBulletsInWaves: 3
   maxLife: 5
   canvasToScaleWithLife: {fileID: 4520699495030285431}
   minimumScaleOfCanvas: 0.3
