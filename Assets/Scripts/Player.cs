@@ -163,7 +163,7 @@ public class Player : MonoBehaviour, ILife
 
     public void TakeHit(float damage)
     {
-        currentLife -= damage;
+        currentLife -= (int)damage;
         if (onHit != null)
             onHit.Invoke();
 
