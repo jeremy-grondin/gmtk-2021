@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] int maxLife = 0;
     public static int currentLife = 0;
 
+    [SerializeField] float chainDamagePerSec = 0;
     public LineRenderer chainLineRenderer = null;
     [SerializeField] GameObject soulGameObject = null;
     Soul soulScript = null;
@@ -100,14 +101,17 @@ public class Player : MonoBehaviour, ILife
         //Clamp pos if the soul is out
         if (soulGameObject.activeSelf)
         {
+
             float radius = soulScript.radius / 2;
             Vector3 selfToSoul = (soulGameObject.transform.position - transform.position);
 
             if (selfToSoul.magnitude > radius)            
                 transform.position += selfToSoul.normalized * (selfToSoul.magnitude - radius);
-
+            
+            //Chain
             chainLineRenderer.SetPosition(0, transform.position);
             chainLineRenderer.SetPosition(1, soulGameObject.transform.position);
+            ChainDamage();
 
         }
 
@@ -156,9 +160,10 @@ public class Player : MonoBehaviour, ILife
         }
     }
 
-    public void TakeHit(int damage)
+
+    public void TakeHit(float damage)
     {
-        currentLife -= damage;
+        currentLife -= (int)damage;
         if (onHit != null)
             onHit.Invoke();
 
@@ -177,4 +182,19 @@ public class Player : MonoBehaviour, ILife
             onPlayerHeal.Invoke();
         }
     }
+
+
+    private void ChainDamage()
+    {
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, soulGameObject.transform.position - transform.position);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+
+            if (hit.transform.gameObject.CompareTag("Enemy"))
+                hit.transform.gameObject.GetComponent<ILife>().TakeHit(chainDamagePerSec * Time.deltaTime);
+        }
+    }
+
 }

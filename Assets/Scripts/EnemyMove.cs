@@ -14,7 +14,7 @@ public class EnemyMove : MonoBehaviour, ILife
 
     [SerializeField] UnityEvent onNeedToDestroy = null;
 
-    [SerializeField] private int damage = 0;
+    [SerializeField] private float damage = 0;
     [SerializeField] private float damageCooldown = 0;
     private float damageCurrentCooldown = 0;
 
@@ -88,10 +88,10 @@ public class EnemyMove : MonoBehaviour, ILife
         Gizmos.DrawWireSphere(transform.position, radiusDetection);
     }
 
-        public void TakeHit(int damage)
+    public void TakeHit(float damage)
     {
         currentLife -= damage;
-        float newScale = Mathf.Max(minimumScaleOfCanvas, currentLife / maxLife);
+        float newScale = (currentLife / maxLife) * (1 - minimumScaleOfCanvas) + minimumScaleOfCanvas;
         canvasToScaleWithLife.localScale = new Vector3(newScale, newScale, newScale);
 
         if (onHit != null)

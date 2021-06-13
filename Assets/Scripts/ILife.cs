@@ -1,6 +1,6 @@
 ﻿
 public interface ILife
 {
-    void TakeHit(int damage);
+    void TakeHit(float damage);
 
 }

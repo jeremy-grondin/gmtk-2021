@@ -93,10 +93,10 @@ public class EnemyShoot : MonoBehaviour, ILife
         Gizmos.DrawWireSphere(transform.position, rangeMax);
     }
 
-    public void TakeHit(int damage)
+    public void TakeHit(float damage)
     {
         currentLife -= damage;
-        float newScale = Mathf.Max(minimumScaleOfCanvas, currentLife / maxLife);
+        float newScale = (currentLife / maxLife) * (1 - minimumScaleOfCanvas) + minimumScaleOfCanvas;
         canvasToScaleWithLife.localScale = new Vector3(newScale, newScale, newScale);
         if (onHit != null)
             onHit.Invoke();
