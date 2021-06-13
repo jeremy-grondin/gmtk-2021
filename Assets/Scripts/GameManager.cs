@@ -16,12 +16,11 @@ public class GameManager : MonoBehaviour
 
     public int nbEnemies = 0;
 
-    Text enemyText = null;
+    [SerializeField] Text enemyText = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyText = GameObject.FindGameObjectWithTag("enemyText").GetComponent<Text>();
         pauseMenu.SetActive(false);
         deathMenu.SetActive(false);
         victoryMenu.SetActive(false);
@@ -40,6 +39,7 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
     }
 
     public void Play()
@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     public void EnemyDeath()
     {
         nbEnemies--;
+        
         if (nbEnemies <= 0)
         {
             nbEnemies = 0;
