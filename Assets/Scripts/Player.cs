@@ -57,7 +57,7 @@ public class Player : MonoBehaviour, ILife
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.isGamePause)
+        if (Time.timeScale == 0.0f)
             return;
 
         Vector3 finalTranslation = Vector3.zero;
