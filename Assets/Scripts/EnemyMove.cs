@@ -19,10 +19,12 @@ public class EnemyMove : MonoBehaviour, ILife
     private float damageCurrentCooldown = 0;
 
     [SerializeField] private float speed = 0;
-    [SerializeField] int maxLife = 0;
-    int currentLife = 0;
-    [SerializeField] private float stoppingDist = 0;
+    [SerializeField] float maxLife = 0;
+    float currentLife = 0;
+    [SerializeField] RectTransform canvasToScaleWithLife = null;
+    [SerializeField] float minimumScaleOfCanvas = 0;
 
+    [SerializeField] private float stoppingDist = 0;
     [SerializeField] GameObject player = null;
     NavMeshAgent navMeshAgent = null;
     [SerializeField] float radiusDetection = 0;
@@ -88,6 +90,9 @@ public class EnemyMove : MonoBehaviour, ILife
         public void TakeHit(int damage)
     {
         currentLife -= damage;
+        float newScale = Mathf.Max(minimumScaleOfCanvas, currentLife / maxLife);
+        canvasToScaleWithLife.localScale = new Vector3(newScale, newScale, newScale);
+
         if (onHit != null)
             onHit.Invoke();
 

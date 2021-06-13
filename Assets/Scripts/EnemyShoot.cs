@@ -23,8 +23,10 @@ public class EnemyShoot : MonoBehaviour, ILife
     float currentCooldownTime = 0;
 
     [Header("Health")]
-    [SerializeField] int maxLife = 0;
-    int currentLife = 0;
+    [SerializeField] float maxLife = 0;
+    float currentLife = 0;
+    [SerializeField] RectTransform canvasToScaleWithLife = null;
+    [SerializeField] float minimumScaleOfCanvas = 0;
     [SerializeField] GameObject deathParticles = null;
 
     private Animator animator;
@@ -81,6 +83,8 @@ public class EnemyShoot : MonoBehaviour, ILife
     public void TakeHit(int damage)
     {
         currentLife -= damage;
+        float newScale = Mathf.Max(minimumScaleOfCanvas, currentLife / maxLife);
+        canvasToScaleWithLife.localScale = new Vector3(newScale, newScale, newScale);
         if (onHit != null)
             onHit.Invoke();
 

@@ -400,6 +400,8 @@ MonoBehaviour:
   rangeMax: 20
   cooldownTime: 0.5
   maxLife: 6
+  canvasToScaleWithLife: {fileID: 4520699495030285431}
+  minimumScaleOfCanvas: 0.3
   deathParticles: {fileID: 1103514418605368035, guid: 7fe952661279793458d8d8114787fa25,
     type: 3}
 --- !u!1 &3770770400990438773
@@ -943,6 +945,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2333818167693279318}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &4520699495030285431 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2224676507172168737, guid: 715981ea616affb4bbac1b2c8a550855,
+    type: 3}
+  m_PrefabInstance: {fileID: 2333818167693279318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6967909457192704277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1057,15 +1065,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd1371bb614988b409e3099ca43ab229, type: 3}
---- !u!198 &8062151691387075531 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 1103514418605368030, guid: cd1371bb614988b409e3099ca43ab229,
-    type: 3}
-  m_PrefabInstance: {fileID: 6967909457192704277}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8062151691387075529 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1103514418605368028, guid: cd1371bb614988b409e3099ca43ab229,
+    type: 3}
+  m_PrefabInstance: {fileID: 6967909457192704277}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8062151691387075531 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1103514418605368030, guid: cd1371bb614988b409e3099ca43ab229,
     type: 3}
   m_PrefabInstance: {fileID: 6967909457192704277}
   m_PrefabAsset: {fileID: 0}
