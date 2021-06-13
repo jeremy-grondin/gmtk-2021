@@ -43,7 +43,6 @@ public class HUD : MonoBehaviour
     public void PlayerHeal()
     {
         int playerLife = Player.currentLife;
-        Debug.Log("HEAL HUD : " + Player.currentLife);
         switch (playerLife)
         {
             case 1:
