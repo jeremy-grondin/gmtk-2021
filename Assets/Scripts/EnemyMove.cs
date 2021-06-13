@@ -25,7 +25,7 @@ public class EnemyMove : MonoBehaviour, ILife
     [SerializeField] float minimumScaleOfCanvas = 0;
 
     [SerializeField] private float stoppingDist = 0;
-    [SerializeField] GameObject player = null;
+     GameObject player = null;
     NavMeshAgent navMeshAgent = null;
     [SerializeField] float radiusDetection = 0;
     bool isFollowing = false; //only used for unityEvent startFollowing and stopFollowing
@@ -38,6 +38,7 @@ public class EnemyMove : MonoBehaviour, ILife
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = speed;
         currentLife = maxLife;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame

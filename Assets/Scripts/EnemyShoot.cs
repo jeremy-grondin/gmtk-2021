@@ -13,7 +13,7 @@ public class EnemyShoot : MonoBehaviour, ILife
     [SerializeField] UnityEvent onPlayerEnterRange = null;
     [SerializeField] UnityEvent onPlayerExitRange = null;
 
-    [SerializeField] Transform player = null;
+    Transform player = null;
     [SerializeField] GameObject bullet = null;
     [SerializeField] GameObject bulletSpawnPoint = null;
 
@@ -39,6 +39,7 @@ public class EnemyShoot : MonoBehaviour, ILife
     private void Start()
     {
         currentLife = maxLife;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
