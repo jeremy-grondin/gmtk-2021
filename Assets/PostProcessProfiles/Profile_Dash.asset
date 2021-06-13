@@ -21,19 +21,19 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+    value: {r: 0.6020381, g: 0.7676414, b: 0.7830189, a: 1}
   center:
     overrideState: 0
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.683
+    value: 0.729
   smoothness:
-    overrideState: 0
-    value: 0.2
+    overrideState: 1
+    value: 0.547
   roundness:
     overrideState: 1
-    value: 0.683
+    value: 0.419
   rounded:
     overrideState: 0
     value: 0
@@ -1373,10 +1373,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 9
+    value: 8.61
   threshold:
     overrideState: 1
-    value: 0.96
+    value: 1.15
   softKnee:
     overrideState: 0
     value: 0.5
@@ -1402,6 +1402,40 @@ MonoBehaviour:
   dirtIntensity:
     overrideState: 0
     value: 0
+--- !u!114 &-4157418997113819361
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
+  m_Name: LensDistortion
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 0
+    value: 3
+  intensityX:
+    overrideState: 0
+    value: 1
+  intensityY:
+    overrideState: 0
+    value: 1
+  centerX:
+    overrideState: 0
+    value: 0
+  centerY:
+    overrideState: 0
+    value: 0
+  scale:
+    overrideState: 1
+    value: 0.95
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1419,6 +1453,34 @@ MonoBehaviour:
   - {fileID: -7234237507544261791}
   - {fileID: 6312470451709985607}
   - {fileID: -9124895321485913594}
+  - {fileID: 5629831789182030909}
+  - {fileID: -4157418997113819361}
+--- !u!114 &5629831789182030909
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  spectralLut:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  intensity:
+    overrideState: 1
+    value: 0.227
+  fastMode:
+    overrideState: 0
+    value: 0
 --- !u!114 &6312470451709985607
 MonoBehaviour:
   m_ObjectHideFlags: 3
