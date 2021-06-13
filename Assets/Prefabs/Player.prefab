@@ -960,6 +960,7 @@ MonoBehaviour:
   speedMove: 20
   scaleUpAtEdge: 2.2
   maxLife: 3
+  chainDamagePerSec: 1
   chainLineRenderer: {fileID: 0}
   soulGameObject: {fileID: 0}
   cam: {fileID: 0}

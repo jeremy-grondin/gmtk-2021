@@ -445,7 +445,7 @@ MonoBehaviour:
         m_CallState: 2
   bullet: {fileID: 2840481985677613617, guid: a91cefd29bc48c443b4febc11866b07f, type: 3}
   bulletSpawnPoint: {fileID: 4074313187491367035}
-  rangeMax: 30
+  rangeMax: 23
   cooldownTimeBetweenWaves: 1.1
   cooldownTimeBetweenBullets: 0.5
   nbOfBulletsInWaves: 3
