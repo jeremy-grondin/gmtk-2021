@@ -93,11 +93,13 @@ public class EnemyMove : MonoBehaviour, ILife
 
     public void TakeHit(float damage)
     {
+        float lifeBeforehit = currentLife;
+
         currentLife -= damage;
         float newScale = (currentLife / maxLife) * (1 - minimumScaleOfCanvas) + minimumScaleOfCanvas;
         canvasToScaleWithLife.localScale = new Vector3(newScale, newScale, newScale);
 
-        if (onHit != null)
+        if (onHit != null && (int)lifeBeforehit != (int)currentLife)
             onHit.Invoke();
 
         if (currentLife <= 0 && !isDead)
