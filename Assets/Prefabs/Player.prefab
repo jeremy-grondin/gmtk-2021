@@ -932,6 +932,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   speedMove: 20
+  scaleUpAtEdge: 10
   maxLife: 3
   currentLife: 0
   chainLineRenderer: {fileID: 0}
