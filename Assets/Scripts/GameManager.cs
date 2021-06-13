@@ -9,11 +9,17 @@ public class GameManager : MonoBehaviour
 
     public static bool isGamePause = false;
 
+    public int nbEnemies = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
         deathMenu.SetActive(false);
+
+        nbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+        Debug.Log("Nb Enemies" + nbEnemies);
     }
 
     // Update is called once per frame
