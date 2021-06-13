@@ -475,14 +475,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.106000006, g: 0.106000006, b: 0.106000006, a: 0.12156863}
+  m_Color: {r: 0.97900003, g: 0.97900003, b: 0.97900003, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 4653964216150833329, guid: a68afdac2e779ba4fa10c646bd58ed37,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64cdfd082c073dc43955f4aaaefc1b91, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -860,10 +859,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ef207a80e0b1084a8a7702ad276d0b1, type: 3}
---- !u!224 &245621431 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3059355682936720323, guid: 0ef207a80e0b1084a8a7702ad276d0b1,
-    type: 3}
+--- !u!4 &245621431 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 245621430}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &279934873
@@ -1845,7 +1843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00024414062, y: -0.26000977}
+  m_AnchoredPosition: {x: 0, y: -0.26000977}
   m_SizeDelta: {x: 0.00024414062, y: 0.0045166016}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &609573321
@@ -2985,10 +2983,10 @@ RectTransform:
   m_Father: {fileID: 279934874}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.15, y: 0.5}
-  m_AnchorMax: {x: 0.85, y: 1}
-  m_AnchoredPosition: {x: 0, y: 22.370117}
-  m_SizeDelta: {x: 0, y: -44.73}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -289.6}
+  m_SizeDelta: {x: 1183.2974, y: 481.2959}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &976556827
 CanvasRenderer:

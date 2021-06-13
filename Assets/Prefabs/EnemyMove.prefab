@@ -140,7 +140,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 25
+  MaxDistance: 350
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -175,7 +175,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -323,43 +323,19 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2436155132629424035}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: dead
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3112035727397526171}
-        m_MethodName: DestroyRoutine
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 172833089775033100, guid: 81961cf5d0289c94cb9fb2e39ece316e,
-          type: 3}
-        m_MethodName: EnemyDeath
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 840176020899505913, guid: 2c3015be2494ee74eb2000443f60d7be,
-          type: 3}
+      - m_Target: {fileID: 0}
         m_MethodName: EnemyKill
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: EnemyDeath
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -376,6 +352,8 @@ MonoBehaviour:
   damageCooldown: 1
   speed: 5
   maxLife: 1
+  canvasToScaleWithLife: {fileID: 7733816356926245374}
+  minimumScaleOfCanvas: 0.3
   stoppingDist: 2.5
   player: {fileID: 0}
   radiusDetection: 20
@@ -687,6 +665,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7612823152092423264}
     m_Modifications:
+    - target: {fileID: 2224676507172168737, guid: 715981ea616affb4bbac1b2c8a550855,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7378584150931743773, guid: 715981ea616affb4bbac1b2c8a550855,
         type: 3}
       propertyPath: m_Name
@@ -802,6 +785,12 @@ PrefabInstance:
 --- !u!224 &538875167137339421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8282632513916417474, guid: 715981ea616affb4bbac1b2c8a550855,
+    type: 3}
+  m_PrefabInstance: {fileID: 8470050988224851423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7733816356926245374 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2224676507172168737, guid: 715981ea616affb4bbac1b2c8a550855,
     type: 3}
   m_PrefabInstance: {fileID: 8470050988224851423}
   m_PrefabAsset: {fileID: 0}

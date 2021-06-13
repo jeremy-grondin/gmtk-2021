@@ -12,7 +12,8 @@ public class Soul : MonoBehaviour
 
 
     [SerializeField] public float radius = 0;
-     bool canBePickupByPlayer = false;
+    bool canBePickupByPlayer = false;
+    bool reachPos = false;
 
     [SerializeField] public Vector3 targetPos = Vector3.zero;
     [HideInInspector] public Vector3 initialPos = Vector3.zero;
@@ -30,7 +31,7 @@ public class Soul : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canBePickupByPlayer)
+        if (reachPos)
             return;
 
         Vector3 dir = (new Vector3(targetPos.x, 0, targetPos.z) - new Vector3(transform.position.x, 0, transform.position.z));
@@ -59,11 +60,12 @@ public class Soul : MonoBehaviour
                 playerScript.rangeFeedBack.SetActive(true);
                 playerScript.chainLineRenderer.gameObject.SetActive(false);
                 canBePickupByPlayer = false;
+                reachPos = false;
                 auraToActivate.SetActive(false);
                 gameObject.SetActive(false);
             }
         }
-        else
+        else if (!other.gameObject.CompareTag("Ground") && !reachPos)
             EndPath();
     }
 
@@ -71,15 +73,16 @@ public class Soul : MonoBehaviour
     {
         if (onStartExplosion != null)
             onStartExplosion.Invoke();
+        reachPos = true;
     }
 
     public void EndExplosion()
     {   
+        if (onEndExplode != null)
+            onEndExplode.Invoke();
         canBePickupByPlayer = true;
         GetComponentInChildren<MeshRenderer>().material = colorWhenPickable;
         auraToActivate.SetActive(true);
-        if (onEndExplode != null)
-        onEndExplode.Invoke();
         
     }
 }

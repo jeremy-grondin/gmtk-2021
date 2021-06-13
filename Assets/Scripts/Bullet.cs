@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
             other.gameObject.GetComponent<Player>().TakeHit(damage);
 
-        if (!other.gameObject.CompareTag("Enemy"))
+        if (!other.gameObject.CompareTag("Enemy") && !other.gameObject.CompareTag("Soul"))
             Destroy(gameObject);
     }
 }

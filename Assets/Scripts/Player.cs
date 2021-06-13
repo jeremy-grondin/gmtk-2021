@@ -16,8 +16,9 @@ public class Player : MonoBehaviour, ILife
 
 
     [SerializeField] float speedMove = 0;
-    [SerializeField] int maxLife = 0;
-    public static int currentLife = 0;
+    [SerializeField] float scaleUpAtEdge = 0;
+    [SerializeField] float maxLife = 0;
+    public float currentLife = 0;
 
     public LineRenderer chainLineRenderer = null;
     [SerializeField] GameObject soulGameObject = null;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] public GameObject rangeFeedBack = null;
     [SerializeField] RectTransform targetPos = null;
     [SerializeField] float maxRangeTargetPos = 0;
+    [SerializeField] RectTransform canvasAimingToScaleWithRange = null;
 
     [SerializeField] float dashSpeed = 0f;
     [SerializeField] float dashCooldown = 0f;
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour, ILife
         dashCooldownTimer = dashCooldown;
         rb = GetComponent<Rigidbody>();
         soulScript = soulGameObject.GetComponent<Soul>();
+        canvasAimingToScaleWithRange.localScale = new Vector3(maxRangeTargetPos, maxRangeTargetPos, maxRangeTargetPos);
     }
 
     // Update is called once per frame
@@ -67,7 +70,11 @@ public class Player : MonoBehaviour, ILife
         if ((Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.LeftArrow)) && !isDashing)
             finalTranslation.x -= 1;
 
-        transform.Translate(finalTranslation.normalized * (speedMove * Time.deltaTime), Space.World);
+
+        Vector3 popssibleFinalPos = transform.position + finalTranslation.normalized * (speedMove * Time.deltaTime);
+        bool isOutsideOfRadius = (soulGameObject.activeSelf && (soulGameObject.transform.position - popssibleFinalPos).magnitude > soulScript.radius / 2)? true : false;
+
+        transform.Translate(finalTranslation.normalized * (speedMove * Time.deltaTime * ((isOutsideOfRadius)? scaleUpAtEdge : 1)), Space.World);
 
         if (Input.GetMouseButtonDown(0) && canDash)
         {
