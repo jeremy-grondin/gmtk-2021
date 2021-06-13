@@ -49,7 +49,8 @@ public class EnemyShoot : MonoBehaviour, ILife
                 isPlayerInRange = true;
             }
 
-            transform.rotation = Quaternion.LookRotation(player.position - transform.position, Vector3.up);
+            
+            transform.rotation = Quaternion.LookRotation(new Vector3(player.position.x - transform.position.x, 0, player.position.z - transform.position.z), Vector3.up);
 
             if (currentCooldownTime <= 0)
             {
