@@ -14,17 +14,17 @@ public class GameManager : MonoBehaviour
 
     public static bool isGamePause = false;
 
-    public int nbEnemies = 0;
+    bool isGameWin = false;
+    static public int nbEnemies = 0;
 
-    Text enemyText = null;
+    [SerializeField] Text enemyText = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyText = GameObject.FindGameObjectWithTag("enemyText").GetComponent<Text>();
         pauseMenu.SetActive(false);
-        deathMenu.SetActive(false);
         victoryMenu.SetActive(false);
+        deathMenu.SetActive(false);
 
         nbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
@@ -35,11 +35,18 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             Resume();
+
+        if(nbEnemies == 0 && !isGameWin)
+        {
+            isGameWin = true;
+            victoryMenu.SetActive(true);
+        }
     }
 
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
     }
 
     public void Play()
@@ -63,19 +70,22 @@ public class GameManager : MonoBehaviour
     {
         playerHud.SetActive(false);
         deathMenu.SetActive(true);
+        Time.timeScale = 0.0f;
     }
 
     public void EnemyDeath()
     {
-        nbEnemies--;
-        if (nbEnemies <= 0)
+        GameManager.nbEnemies--;
+        
+        if (GameManager.nbEnemies <= 0)
         {
-            nbEnemies = 0;
+            GameManager.nbEnemies = 0;
+
             if (enemiesAllDead != null)
+            {
                 enemiesAllDead.Invoke();
-            
-            //victoryMenu.SetActive(true);
+            }
         }
-        //enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
+        GameObject.FindGameObjectWithTag("enemyText").GetComponent<Text>().text = "Enemies remaining : " + nbEnemies.ToString();
     }
 }
