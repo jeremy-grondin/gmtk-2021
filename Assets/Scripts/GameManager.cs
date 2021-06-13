@@ -39,14 +39,15 @@ public class GameManager : MonoBehaviour
         if(nbEnemies == 0 && !isGameWin)
         {
             isGameWin = true;
+            Time.timeScale = 0.0f;
             victoryMenu.SetActive(true);
         }
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(0);
         Time.timeScale = 1.0f;
+        SceneManager.LoadScene(0);
     }
 
     public void Play()
@@ -57,9 +58,9 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
+        Time.timeScale = (Time.timeScale == 0) ? 1.0f : 0.0f;
         isGamePause = !isGamePause;
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        Time.timeScale = (Time.timeScale == 0) ? 1.0f : 0.0f;
     }
 
     public void QuitApp()
@@ -69,9 +70,9 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeath()
     {
+        Time.timeScale = 0.0f;
         playerHud.SetActive(false);
         deathMenu.SetActive(true);
-        Time.timeScale = 0.0f;
     }
 
     public void EnemyDeath()
