@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreen.unity
     guid: 2de36a117b932cd489db8b96be10dfb3
   - enabled: 1
-    path: Assets/Scenes/Sandbox.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Level1.unity
+    guid: 3f28a879c8c724740a956826492e3cd0
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: ab0493c6f10ca6e4899a36ec58caae82
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: b36e48358c8c0144d8f47830f8b8d37a
   m_configObjects: {}
