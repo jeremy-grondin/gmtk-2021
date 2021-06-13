@@ -15,6 +15,7 @@ public class EnemyShoot : MonoBehaviour, ILife
 
     [SerializeField] Transform player = null;
     [SerializeField] GameObject bullet = null;
+    [SerializeField] GameObject bulletSpawnPoint = null;
 
     [Header("Shooting")]
 
@@ -60,7 +61,7 @@ public class EnemyShoot : MonoBehaviour, ILife
                     startShoot.Invoke();
 
                 currentCooldownTime = cooldownTime;
-                GameObject clone = Instantiate(bullet, transform.position, transform.rotation);
+                GameObject clone = Instantiate(bullet, bulletSpawnPoint.transform.position, transform.rotation);                
                 clone.gameObject.GetComponent<Bullet>().direction = player.position - transform.position;
             }
         }
