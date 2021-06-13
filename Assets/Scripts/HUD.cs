@@ -22,8 +22,7 @@ public class HUD : MonoBehaviour
 
     public void PlayerHit()
     {
-        float playerLife = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentLife;
-        Debug.Log("Life loss");
+        int playerLife = Player.currentLife;
 
         switch(playerLife)
         {
@@ -35,6 +34,25 @@ public class HUD : MonoBehaviour
                 break;
             case 2:
                 life3.SetActive(false);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void PlayerHeal()
+    {
+        int playerLife = Player.currentLife;
+        switch (playerLife)
+        {
+            case 1:
+                life1.SetActive(true);
+                break;
+            case 2:
+                life2.SetActive(true);
+                break;
+            case 3:
+                life3.SetActive(true);
                 break;
             default:
                 break;

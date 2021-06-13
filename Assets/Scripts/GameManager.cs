@@ -14,17 +14,17 @@ public class GameManager : MonoBehaviour
 
     public static bool isGamePause = false;
 
-    public int nbEnemies = 0;
+    bool isGameWin = false;
+    static public int nbEnemies = 0;
 
-    Text enemyText = null;
+    [SerializeField] Text enemyText = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyText = GameObject.FindGameObjectWithTag("enemyText").GetComponent<Text>();
         pauseMenu.SetActive(false);
-        deathMenu.SetActive(false);
         victoryMenu.SetActive(false);
+        deathMenu.SetActive(false);
 
         nbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
@@ -35,23 +35,32 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             Resume();
+
+        if(nbEnemies == 0 && !isGameWin)
+        {
+            isGameWin = true;
+            Time.timeScale = 0.0f;
+            victoryMenu.SetActive(true);
+        }
     }
 
     public void GoToMainMenu()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
 
     public void Play()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(1);
     }
 
     public void Resume()
     {
+        Time.timeScale = (Time.timeScale == 0) ? 1.0f : 0.0f;
         isGamePause = !isGamePause;
         pauseMenu.SetActive(!pauseMenu.activeSelf);
-        Time.timeScale = (Time.timeScale == 0) ? 1.0f : 0.0f;
     }
 
     public void QuitApp()
@@ -61,21 +70,24 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeath()
     {
+        Time.timeScale = 0.0f;
         playerHud.SetActive(false);
         deathMenu.SetActive(true);
     }
 
     public void EnemyDeath()
     {
-        nbEnemies--;
-        if (nbEnemies <= 0)
+        GameManager.nbEnemies--;
+        
+        if (GameManager.nbEnemies <= 0)
         {
-            nbEnemies = 0;
+            GameManager.nbEnemies = 0;
+
             if (enemiesAllDead != null)
+            {
                 enemiesAllDead.Invoke();
-            
-            //victoryMenu.SetActive(true);
+            }
         }
-        //enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
+        GameObject.FindGameObjectWithTag("enemyText").GetComponent<Text>().text = "Enemies remaining : " + nbEnemies.ToString();
     }
 }

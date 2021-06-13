@@ -12,12 +12,13 @@ public class Player : MonoBehaviour, ILife
     [SerializeField] UnityEvent onDash = null;
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
+    [SerializeField] UnityEvent onPlayerHeal = null;
 
 
     [SerializeField] float speedMove = 0;
     [SerializeField] float scaleUpAtEdge = 0;
-    [SerializeField] float maxLife = 0;
-    public float currentLife = 0;
+    [SerializeField] int maxLife = 0;
+    public static int currentLife = 0;
 
     [SerializeField] float chainDamagePerSec = 0;
     public LineRenderer chainLineRenderer = null;
@@ -157,20 +158,17 @@ public class Player : MonoBehaviour, ILife
             rb.velocity = Vector3.zero;
             isDashing = false;
         }
-
     }
 
 
     public void TakeHit(float damage)
     {
         currentLife -= damage;
-        Debug.Log(currentLife.ToString());
         if (onHit != null)
             onHit.Invoke();
 
         if (currentLife <= 0)
         {
-            Debug.Log("Player Dead");
             if (onDeath != null)
                 onDeath.Invoke();
         }
@@ -178,8 +176,11 @@ public class Player : MonoBehaviour, ILife
 
     public void EnemyKill()
     {
-        if (currentLife < maxLife)
-            currentLife++;
+        if (Player.currentLife < maxLife)
+        {
+            Player.currentLife++;
+            onPlayerHeal.Invoke();
+        }
     }
 
 
