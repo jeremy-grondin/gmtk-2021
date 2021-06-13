@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] UnityEvent enemiesAllDead = null;
+
     [SerializeField] GameObject playerHud = null;
     [SerializeField] GameObject pauseMenu = null;
     [SerializeField] GameObject deathMenu = null;
+    [SerializeField] GameObject victoryMenu = null;
 
     public static bool isGamePause = false;
 
@@ -16,6 +20,7 @@ public class GameManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         deathMenu.SetActive(false);
+        victoryMenu.SetActive(false);
 
         nbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
@@ -55,5 +60,15 @@ public class GameManager : MonoBehaviour
     {
         playerHud.SetActive(false);
         deathMenu.SetActive(true);
+    }
+
+    public void EnemyDeath()
+    {
+        nbEnemies--;
+        if (nbEnemies <= 0)
+        {
+            enemiesAllDead.Invoke();
+            victoryMenu.SetActive(true);
+        }
     }
 }
