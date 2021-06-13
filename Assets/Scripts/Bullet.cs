@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-
+    [SerializeField] GameObject particleAtDeath = null;
     public Vector3 direction = Vector3.zero;
     [SerializeField] float speed = 0;
     [SerializeField] float damage = 0;
@@ -21,6 +21,10 @@ public class Bullet : MonoBehaviour
             other.gameObject.GetComponent<ILife>().TakeHit(damage);
 
         if (!other.gameObject.CompareTag("Enemy") && !other.gameObject.CompareTag("Soul"))
+        {
+            if(particleAtDeath != null)
+                Instantiate(particleAtDeath, transform.position, transform.rotation);
             Destroy(gameObject);
+        }
     }
 }
