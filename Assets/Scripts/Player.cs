@@ -57,13 +57,13 @@ public class Player : MonoBehaviour, ILife
 
         Vector3 finalTranslation = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.Z) && !isDashing)
+        if ((Input.GetKey(KeyCode.Z) || Input.GetKey(KeyCode.UpArrow)) && !isDashing)
             finalTranslation.z += 1; 
-        if (Input.GetKey(KeyCode.S) && !isDashing)
+        if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && !isDashing)
             finalTranslation.z -= 1;
-        if (Input.GetKey(KeyCode.D) && !isDashing)
+        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && !isDashing)
             finalTranslation.x += 1;
-        if (Input.GetKey(KeyCode.Q) && !isDashing)
+        if ((Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.LeftArrow)) && !isDashing)
             finalTranslation.x -= 1;
 
         transform.Translate(finalTranslation.normalized * (speedMove * Time.deltaTime), Space.World);
