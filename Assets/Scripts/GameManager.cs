@@ -76,6 +76,6 @@ public class GameManager : MonoBehaviour
             
             //victoryMenu.SetActive(true);
         }
-        enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
+        //enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
     }
 }
