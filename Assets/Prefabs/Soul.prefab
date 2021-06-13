@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 6314613138758779944}
   m_Layer: 0
   m_Name: Soul
-  m_TagString: soul
+  m_TagString: Soul
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
