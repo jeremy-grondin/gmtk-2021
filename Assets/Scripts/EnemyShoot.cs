@@ -10,6 +10,8 @@ public class EnemyShoot : MonoBehaviour, ILife
     [SerializeField] UnityEvent onHit = null;
     [SerializeField] UnityEvent onDeath = null;
     [SerializeField] UnityEvent onNeedToDestroy = null;
+    [SerializeField] UnityEvent onPlayerEnterRange = null;
+    [SerializeField] UnityEvent onPlayerExitRange = null;
 
     [SerializeField] Transform player = null;
     [SerializeField] GameObject bullet = null;
@@ -26,6 +28,7 @@ public class EnemyShoot : MonoBehaviour, ILife
     [SerializeField] GameObject deathParticles = null;
 
     private Animator animator;
+    bool isPlayerInRange = false;
 
     private void Start()
     {
@@ -40,6 +43,12 @@ public class EnemyShoot : MonoBehaviour, ILife
 
         if ((player.position - transform.position).magnitude <= rangeMax)
         {
+            if (!isPlayerInRange)
+            {
+                onPlayerEnterRange.Invoke();
+                isPlayerInRange = true;
+            }
+
             transform.rotation = Quaternion.LookRotation(player.position - transform.position, Vector3.up);
 
             if (currentCooldownTime <= 0)
@@ -52,8 +61,16 @@ public class EnemyShoot : MonoBehaviour, ILife
                 clone.gameObject.GetComponent<Bullet>().direction = player.position - transform.position;
             }
         }
-
+        else
+        {
+            if (isPlayerInRange)
+            {
+                onPlayerExitRange.Invoke();
+                isPlayerInRange = false;
+            }
+        }
     }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

@@ -165,4 +165,10 @@ public class Player : MonoBehaviour, ILife
         }
     }
 
+    public void EnemyKill()
+    {
+        if (currentLife < maxLife)
+            currentLife++;
+    }
+
 }

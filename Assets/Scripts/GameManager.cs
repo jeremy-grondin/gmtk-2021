@@ -1,19 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] UnityEvent enemiesAllDead = null;
+
     [SerializeField] GameObject playerHud = null;
     [SerializeField] GameObject pauseMenu = null;
     [SerializeField] GameObject deathMenu = null;
+    [SerializeField] GameObject victoryMenu = null;
 
     public static bool isGamePause = false;
+
+    public int nbEnemies = 0;
+
+    Text enemyText = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyText = GameObject.FindGameObjectWithTag("enemyText").GetComponent<Text>();
         pauseMenu.SetActive(false);
         deathMenu.SetActive(false);
+        victoryMenu.SetActive(false);
+
+        nbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
     }
 
     // Update is called once per frame
@@ -49,5 +63,19 @@ public class GameManager : MonoBehaviour
     {
         playerHud.SetActive(false);
         deathMenu.SetActive(true);
+    }
+
+    public void EnemyDeath()
+    {
+        nbEnemies--;
+        if (nbEnemies <= 0)
+        {
+            nbEnemies = 0;
+            if (enemiesAllDead != null)
+                enemiesAllDead.Invoke();
+            
+            //victoryMenu.SetActive(true);
+        }
+        enemyText.text = "Enemies remaining : " + nbEnemies.ToString();
     }
 }
