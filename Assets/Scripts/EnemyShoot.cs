@@ -25,6 +25,7 @@ public class EnemyShoot : MonoBehaviour, ILife
     [SerializeField] int nbOfBulletsInWaves = 0;
     float currentCooldownTime = 0;
     int currentNbOfbulletShot = 0;
+    bool isDead = false;
 
     [Header("Health")]
     [SerializeField] float maxLife = 0;
@@ -38,6 +39,7 @@ public class EnemyShoot : MonoBehaviour, ILife
 
     private void Start()
     {
+        isDead = false;
         currentLife = maxLife;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -95,16 +97,19 @@ public class EnemyShoot : MonoBehaviour, ILife
 
     public void TakeHit(float damage)
     {
+
         currentLife -= damage;
         float newScale = (currentLife / maxLife) * (1 - minimumScaleOfCanvas) + minimumScaleOfCanvas;
         canvasToScaleWithLife.localScale = new Vector3(newScale, newScale, newScale);
         if (onHit != null)
             onHit.Invoke();
 
-        if (currentLife <= 0)
+        if (currentLife <= 0 && !isDead)
         {
             if (onDeath != null)
                 onDeath.Invoke();
+
+            isDead = true;
             animator = GetComponentInChildren<Animator>();
             animator.SetBool("dead",true);
         }
@@ -113,6 +118,7 @@ public class EnemyShoot : MonoBehaviour, ILife
     {
         if (onNeedToDestroy != null)
             onNeedToDestroy.Invoke();
+
         GameObject clone = Instantiate(deathParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }

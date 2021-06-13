@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
     public void EnemyDeath()
     {
         GameManager.nbEnemies--;
+
+        Debug.Log("EnemyDeath");
         
         if (GameManager.nbEnemies <= 0)
         {

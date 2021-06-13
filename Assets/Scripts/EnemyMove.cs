@@ -32,9 +32,12 @@ public class EnemyMove : MonoBehaviour, ILife
     [SerializeField] GameObject deathParticles = null;
     private Animator animator;
 
+    bool isDead = false;
+
 
     private void Start()
     {
+        isDead = false;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = speed;
         currentLife = maxLife;
@@ -97,10 +100,12 @@ public class EnemyMove : MonoBehaviour, ILife
         if (onHit != null)
             onHit.Invoke();
 
-        if (currentLife <= 0)
+        if (currentLife <= 0 && !isDead)
         {
             if (onDeath != null)
                 onDeath.Invoke();
+
+            isDead = true;
             animator = GetComponentInChildren<Animator>();
             animator.SetBool("dead",true);
         }

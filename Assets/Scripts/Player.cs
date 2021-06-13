@@ -193,7 +193,12 @@ public class Player : MonoBehaviour, ILife
             RaycastHit hit = hits[i];
 
             if (hit.transform.gameObject.CompareTag("Enemy"))
-                hit.transform.gameObject.GetComponent<ILife>().TakeHit(chainDamagePerSec * Time.deltaTime);
+            {
+                ILife temp = hit.transform.gameObject.GetComponent<ILife>();
+
+                if(temp != null)
+                    temp.TakeHit(chainDamagePerSec * Time.deltaTime);
+            }
         }
     }
 
